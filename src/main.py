@@ -1,5 +1,5 @@
 #!/bin/python
 
-from Server import Server
+import Server
 
-server = Server()
+server = Server.Server()
