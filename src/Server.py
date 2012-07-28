@@ -1,13 +1,29 @@
+# -*- coding: utf-8 -*-
+
 from twisted.internet import protocol
 from twisted.internet import reactor
 from twisted.protocols import basic
+import json
 
-class FingerProtocol(basic.LineReceiver):
-    def lineReceived(self, line):
-        self.transport.write("No such user: {}\r\n".format(line))
+class PongProtocol(basic.Int32StringReceiver):
+    def stringReceived(self, line):
+        data = json.loads(line)
+        send = {"type": "error"}
+        if(data["type"] == "ping"):
+            send["type"] = "pong"
+        self.sendString(json.dumps(send))
         self.transport.loseConnection()
-class FingerFactory(protocol.ServerFactory):
-    protocol = FingerProtocol
 
-reactor.listenTCP(1079, FingerFactory())
+class PongFactory(protocol.ServerFactory):
+    protocol = PongProtocol
+
+class Echo(protocol.Protocol):
+    def dataReceived(self, data):
+        print(data)
+
+class EchoFactory(protocol.Factory):
+    def buildProtocol(self, addr):
+        return Echo()
+
+reactor.listenTCP(4242, PongFactory())
 reactor.run()
