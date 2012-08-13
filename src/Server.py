@@ -27,5 +27,5 @@ class EchoFactory(protocol.Factory):
 
 class Server:
     def __init__(self):
-        reactor.listenTCP(4242, PongFactory())
+        reactor.listenTCP(34340, PongFactory())
         reactor.run()
