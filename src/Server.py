@@ -7,7 +7,6 @@ import json
 
 class NexYuServProtocol(basic.Int32StringReceiver):
     def stringReceived(self, line):
-        print("String received")
         send = {"type": "error"}
         try:
             data = json.loads(line)
