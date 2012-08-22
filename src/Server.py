@@ -5,17 +5,27 @@ from twisted.internet import reactor
 from twisted.protocols import basic
 import json
 
-class PongProtocol(basic.Int32StringReceiver):
+class NexYuServProtocol(basic.Int32StringReceiver):
     def stringReceived(self, line):
-        data = json.loads(line)
+        print("String received")
         send = {"type": "error"}
-        if(data["type"] == "ping"):
-            send["type"] = "pong"
-        self.sendString(json.dumps(send))
-        self.transport.loseConnection()
+        try:
+            data = json.loads(line)
+        except:
+            print("Wrong JSON")
+        else:
+            if(data["type"] == "ping"):
+                send["type"] = "pong"
+            elif(data["type"] == "messages"):
+                messages = data["data"]
+                for message in messages:
+                    print(message["sender"] + " sent " + message["body"])
+                send["type"] = "ok"
 
-class PongFactory(protocol.ServerFactory):
-    protocol = PongProtocol
+        self.sendString(json.dumps(send))
+
+class NexYuServFactory(protocol.ServerFactory):
+    protocol = NexYuServProtocol
 
 class Echo(protocol.Protocol):
     def dataReceived(self, data):
@@ -27,5 +37,5 @@ class EchoFactory(protocol.Factory):
 
 class Server:
     def __init__(self):
-        reactor.listenTCP(34340, EchoFactory())
-        reactor.run()
+        reactor.listenTCP(34340, NexYuServFactory()) #@UndefinedVariable
+        reactor.run() #@UndefinedVariable
