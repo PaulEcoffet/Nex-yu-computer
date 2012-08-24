@@ -21,12 +21,15 @@ class NexYuServProtocol(basic.Int32StringReceiver):
                     print(message["sender"] + " sent " + message["body"])
                 send["type"] = "ok"
         self.sendString(json.dumps(send))
+
     def sendSMS(self, number, body):
         print("{} : {}".format(number, body))
+        self.sendString(json.dumps({"type":"xd", "data":None}))
         
     def connectionMade(self):
         self.factory.io.server = self
-        print("Lol")
+        print("Connected")
+        self.sendString(json.dumps({"type":"ok", "data":None}))
 
 
 
@@ -66,7 +69,7 @@ class IO(basic.LineOnlyReceiver):
         self.transport.write('>>> ')
 
 
-### END
+### END OF DEBUGGING BLOC
 
 
 class Server:
