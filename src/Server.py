@@ -23,8 +23,9 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         self.sendString(json.dumps(send))
 
     def sendSMS(self, number, body):
-        print("{} : {}".format(number, body))
-        self.sendString(json.dumps({"type":"xd", "data":None}))
+        sms = {"recipient": str(number), "body":str(body), "id": self.factory.smsId}
+        self.factory.smsId += 1
+        self.sendString(json.dumps({"type":"messageToSend", "data":sms}))
         
     def connectionMade(self):
         self.factory.io.server = self
@@ -35,6 +36,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
 class NexYuServFactory(protocol.ServerFactory):
     protocol = NexYuServProtocol
+    smsId = 0
     
     def __init__(self, io):
         self.io = io
