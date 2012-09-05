@@ -8,76 +8,76 @@ import json
 import string
 
 class NexYuServProtocol(basic.Int32StringReceiver):
-    def stringReceived(self, line):
-        send = {"type": "error"}
-        try:
-            data = json.loads(line)
-        except:
-            print("Wrong JSON")
-        else:
-            if(data["type"] == "messages"):
-                messages = data["data"]
-                for message in messages:
-                    print(message["sender"] + " sent " + message["body"])
-                send["type"] = "ok"
-        self.sendString(json.dumps(send))
+		def stringReceived(self, line):
+				send = {"type": "error"}
+				try:
+						data = json.loads(line)
+				except:
+						print("Wrong JSON")
+				else:
+						if(data["type"] == "messages"):
+								messages = data["data"]
+								for message in messages:
+										print(message["sender"] + " sent " + message["body"])
+								send["type"] = "ok"
+				self.sendString(json.dumps(send))
 
-    def sendSMS(self, number, body):
-        sms = {"recipient": str(number), "body":str(body), "id": self.factory.smsId}
-        self.factory.smsId += 1
-        self.sendString(json.dumps({"type":"messageToSend", "data":sms}))
-        
-    def connectionMade(self):
-        self.factory.io.server = self
-        print("Connected")
-        self.sendString(json.dumps({"type":"ok", "data":None}))
+		def sendSMS(self, number, body):
+				sms = {"recipient": str(number), "body":str(body), "id": int(self.factory.smsId)}
+				self.factory.smsId += 1
+				self.sendString(json.dumps({"type":"messageToSend", "data":sms}))
+
+		def connectionMade(self):
+				self.factory.io.server = self
+				print("Connected")
+				self.sendString(json.dumps({"type":"ok", "data":None}))
 
 
 
 class NexYuServFactory(protocol.ServerFactory):
-    protocol = NexYuServProtocol
-    smsId = 0
-    
-    def __init__(self, io):
-        self.io = io
+		protocol = NexYuServProtocol
+		smsId = 0
+
+		def __init__(self, io):
+				self.io = io
 
 
 
 ### FOR DEBUGGING PURPOSE
 class Echo(protocol.Protocol):
-    def dataReceived(self, data):
-        print(data)
+		def dataReceived(self, data):
+				print(data)
 
 class EchoFactory(protocol.Factory):
-    def buildProtocol(self, addr):
-        return Echo()
+		def buildProtocol(self, addr):
+				return Echo()
 
 class IO(basic.LineOnlyReceiver):
-    from os import linesep as delimiter #@UnusedImport
-    
-    def __init__(self):
-        self.server = None
+		from os import linesep as delimiter #@UnusedImport
 
-    def connectionMade(self):
-        self.transport.write('>>> ')
+		def __init__(self):
+				self.server = None
 
-    def lineReceived(self, line):
-        if self.server is not None:
-            words = string.split(line, " ")
-            number = words[0]
-            self.server.sendSMS(number, string.join(words[1:], " "))
-        else:
-            self.transport.write('Not connected yet.\n')
-        self.transport.write('>>> ')
+		def connectionMade(self):
+				self.transport.write('>>> ')
+
+		def lineReceived(self, line):
+				if self.server is not None:
+						words = string.split(line, " ")
+						number = words[0]
+						self.server.sendSMS(number, string.join(words[1:], " "))
+				else:
+						self.transport.write('Not connected yet.\n')
+				self.transport.write('>>> ')
 
 
 ### END OF DEBUGGING BLOC
 
 
 class Server:
-    def __init__(self):
-        io = IO()
-        server = NexYuServFactory(io)
-        stdio.StandardIO(io)
-        reactor.listenTCP(34340, server) #@UndefinedVariable
-        reactor.run() #@UndefinedVariable
+		def __init__(self):
+				io = IO()
+				server = NexYuServFactory(io)
+				stdio.StandardIO(io)
+				reactor.listenTCP(34340, server) #@UndefinedVariable
+				reactor.run() #@UndefinedVariable
