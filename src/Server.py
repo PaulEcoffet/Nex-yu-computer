@@ -31,6 +31,10 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				self.factory.io.server = self
 				print("Connected")
 				self.sendString(json.dumps({"type":"ok", "data":None}))
+				
+		def connectionLost(self, reason):
+			print("Disconnected")
+			self.factory.io.server = None
 
 
 
@@ -62,12 +66,12 @@ class IO(basic.LineOnlyReceiver):
 				self.transport.write('>>> ')
 
 		def lineReceived(self, line):
-				if self.server is not None:
+				if self.server is not None and line != '':
 						words = string.split(line, " ")
 						number = words[0]
 						self.server.sendSMS(number, string.join(words[1:], " "))
 				else:
-						self.transport.write('Not connected yet.\n')
+						self.transport.write('\nError (not connected or line empty).\n')
 				self.transport.write('>>> ')
 
 
