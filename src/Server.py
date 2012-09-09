@@ -23,7 +23,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				self.sendString(json.dumps(send))
 
 		def sendSMS(self, number, body):
-				sms = {"recipient": str(number), "body":str(body), "id": int(self.factory.smsId)}
+				sms = {"recipient": unicode(number), "body":unicode(body), "id": int(self.factory.smsId)}
 				self.factory.smsId += 1
 				self.sendString(json.dumps({"type":"messageToSend", "data":sms}))
 
