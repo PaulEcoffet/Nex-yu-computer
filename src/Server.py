@@ -11,13 +11,13 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 		def stringReceived(self, line):
 				send = {"type": "error"}
 				try:
-						data = json.loads(line)
+						networkMessage = json.loads(line)
 				except:
 						print("Wrong JSON")
 				else:
-						if(data["type"] == "messages"):
-								message = data["data"]
-								print("% sent %".format(message.sender, message.body))
+						if(networkMessage["type"] == "message"):
+								message = networkMessage["data"]
+								print("{} sent {}".format(message["sender"], message["body"]))
 								send["type"] = "ok"
 				self.sendString(json.dumps(send))
 
