@@ -16,9 +16,8 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 						print("Wrong JSON")
 				else:
 						if(data["type"] == "messages"):
-								messages = data["data"]
-								for message in messages:
-										print(message["sender"] + " sent " + message["body"])
+								message = data["data"]
+								print("% sent %".format(message.sender, message.body))
 								send["type"] = "ok"
 				self.sendString(json.dumps(send))
 
