@@ -19,13 +19,16 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				message = networkMessage["data"]
 				print("{} sent {}".format(message["sender"], message["body"]))
 				send["type"] = "ok"
-			if(networkMessage["type"] == "SMSSent"):
+			elif(networkMessage["type"] == "SMSSent"):
 				smsSent = networkMessage["data"]
 				if(smsSent["result"] == 0):
 					print("{} is a success".format(smsSent["id"]))
 					send["type"] = "ok"
 				else:
 					print("{} has failed".format(smsSent["id"]))
+			elif(networkMessage["type"] == "ContactsList"):
+				print(line)
+
 			self.sendString(json.dumps(send))
 
 	def sendSMS(self, number, body):
