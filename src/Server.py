@@ -27,7 +27,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				else:
 					print("{} has failed".format(smsSent["id"]))
 			elif(networkMessage["type"] == "ContactsList"):
-				print(line)
+				print(line.decode("utf-8"))
 
 			self.sendString(json.dumps(send))
 
