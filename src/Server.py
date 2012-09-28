@@ -8,27 +8,35 @@ import json
 import string
 
 class NexYuServProtocol(basic.Int32StringReceiver):
+
 	def stringReceived(self, line):
-		send = {"type": "error"}
+		send = {"type": "error", "data": None}
 		try:
 			networkMessage = json.loads(line)
 		except:
 			print("Wrong JSON")
 		else:
-			if(networkMessage["type"] == "message"):
-				message = networkMessage["data"]
-				print("{} sent {}".format(message["sender"], message["body"]))
-				send["type"] = "ok"
-			elif(networkMessage["type"] == "SMSSent"):
-				smsSent = networkMessage["data"]
-				if(smsSent["result"] == 0):
-					print("{} is a success".format(smsSent["id"]))
+			if self.verified is True:
+				if networkMessage["type"] == "message":
+					message = networkMessage["data"]
+					print("{} sent {}".format(message["sender"], message["body"]))
+					send["type"] = "ok"
+				elif networkMessage["type"] == "SMSSent":
+					smsSent = networkMessage["data"]
+					if smsSent["result"] == 0 :
+						print("{} is a success".format(smsSent["id"]))
+						send["type"] = "ok"
+					else:
+						print("{} has failed".format(smsSent["id"]))
+				elif networkMessage["type"] == "ContactsList":
+					print(line.decode("utf-8"))
+			elif networkMessage["type"] == "verifCode":
+				if(networkMessage["data"] == self.factory.verifCode):
+					self.verified = True
 					send["type"] = "ok"
 				else:
-					print("{} has failed".format(smsSent["id"]))
-			elif(networkMessage["type"] == "ContactsList"):
-				print(line.decode("utf-8"))
-
+					send["type"] = "error"
+					send["data"] = {"message": "Wrong verifCode"}
 			self.sendString(json.dumps(send))
 
 	def sendSMS(self, number, body):
@@ -38,19 +46,29 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
 	def connectionMade(self):
 		self.factory.io.server = self
-		print("Connected")
-		self.sendString(json.dumps({"type":"ok", "data":None}))
+		self.verified = False
+		self.factory.connections += 1
 
+		if(self.factory.connections == 1):
+			print("Connected")
+			self.sendString(json.dumps({"type":"askVerifCode", "data":None}))
+		else:
+			self.transport.loseConnection()
+			
 	def connectionLost(self, reason):
 		print("Disconnected")
 		self.factory.io.server = None
+		self.factory.connections -= 1
+		
 
 class NexYuServFactory(protocol.ServerFactory):
 	protocol = NexYuServProtocol
-	smsId = 1
 
 	def __init__(self, io):
 		self.io = io
+		self.smsId = 1
+		self.connections = 0
+		self.verifCode = "TEST"
 
 ### FOR DEBUGGING PURPOSE
 class Echo(protocol.Protocol):
