@@ -11,6 +11,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
 	def stringReceived(self, line):
 		send = {"type": "error", "data": None}
+		disconnect = False
 		try:
 			networkMessage = json.loads(line)
 		except:
@@ -37,12 +38,18 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				else:
 					send["type"] = "error"
 					send["data"] = {"message": "Wrong verifCode"}
+					disconnect = True
+
 			self.sendString(json.dumps(send))
+			if disconnect is True:
+				self.transport.loseConnection()
+
 
 	def sendSMS(self, number, body):
 		sms = {"recipient": unicode(number), "body":unicode(body), "id": int(self.factory.smsId)}
 		self.factory.smsId += 1
 		self.sendString(json.dumps({"type":"messageToCell", "data":sms}))
+
 
 	def connectionMade(self):
 		self.factory.io.server = self
@@ -54,6 +61,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 			self.sendString(json.dumps({"type":"askVerifCode", "data":None}))
 		else:
 			self.transport.loseConnection()
+			
 			
 	def connectionLost(self, reason):
 		print("Disconnected")
