@@ -34,8 +34,10 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 			elif networkMessage["type"] == "verifCode":
 				if(networkMessage["data"] == self.factory.verifCode):
 					self.verified = True
+					print("verified")
 					send["type"] = "ok"
 				else:
+					print("Wrong verifCode")
 					send["type"] = "error"
 					send["data"] = {"message": "Wrong verifCode"}
 					disconnect = True
@@ -56,8 +58,8 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 		self.verified = False
 		self.factory.connections += 1
 
+		print("Connected")
 		if(self.factory.connections == 1):
-			print("Connected")
 			self.sendString(json.dumps({"type":"askVerifCode", "data":None}))
 		else:
 			self.transport.loseConnection()
