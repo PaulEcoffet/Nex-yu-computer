@@ -67,8 +67,10 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 			
 	def connectionLost(self, reason):
 		print("Disconnected")
-		self.factory.io.server = None
 		self.factory.connections -= 1
+		if self.factory.connections < 1:
+			self.factory.io.server = None
+
 		
 
 class NexYuServFactory(protocol.ServerFactory):
