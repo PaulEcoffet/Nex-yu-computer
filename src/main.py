@@ -11,7 +11,6 @@ if __name__ == "__main__":
 	server = Server.Server(reactor)
 	
 	but = QtGui.QPushButton("Disconnect")
-	but.clicked.connect(app.exit())
 	but.show()
 	
 	reactor.runReturn() #@UndefinedVariable
