@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="login">
+    <file>NexYuLogo.png</file>
+    <file>NexYuLogoFull.png</file>
+    <file>NexyuQr.png</file>
+  </qresource>
+</RCC>
