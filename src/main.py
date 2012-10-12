@@ -1,18 +1,25 @@
 #!/bin/python
-if __name__ == "__main__":
-	import sys
-	import Server
-	from PyQt4 import QtCore, QtGui
+import sys
+import Server
+import pyqrcode
+import LoginWindow
+from PyQt4 import QtCore, QtGui
+
+def main():
+	"""Main function"""
 	app = QtGui.QApplication(sys.argv)
 	import qt4reactor
 	qt4reactor.install()
 	from twisted.internet import reactor
 
 	server = Server.Server(reactor)
-	
-	but = QtGui.QPushButton("Disconnect")
-	but.show()
-	
+	loginWindow = LoginWindow()
+	loginWindow.show()
 	reactor.runReturn() #@UndefinedVariable
-	sys.exit(app.exec_())
+	app.exec_()
+	reactor.stop()
+	
+if __name__ == "__main__":
+	main()
+
 
