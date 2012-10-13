@@ -5,6 +5,7 @@ from twisted.protocols import basic
 from twisted.internet import stdio
 import json
 import string
+import utils
 
 class NexYuServProtocol(basic.Int32StringReceiver):
 
@@ -77,7 +78,7 @@ class NexYuServFactory(protocol.ServerFactory):
 		self.io = io
 		self.smsId = 1
 		self.connections = 0
-		self.verifCode = "TEST"
+		self.verifCode = utils.code_generator()
 
 ### FOR DEBUGGING PURPOSE
 class Echo(protocol.Protocol):
@@ -112,7 +113,20 @@ class IO(basic.LineOnlyReceiver):
 class Server:
 	def __init__(self, _reactor):
 		self.reactor = _reactor
+		self.port = 34340
 		io = IO()
-		server = NexYuServFactory(io)
+		self.nexServer = NexYuServFactory(io)
 		stdio.StandardIO(io)
-		self.reactor.listenTCP(34340, server) #@UndefinedVariable
+		success = False
+		while not success:
+			try:
+				self.reactor.listenTCP(self.port, self.nexServer) #@UndefinedVariable
+			except:
+				self.port += 1
+			else:
+				success = True
+				print "Listening to port", self.port
+	
+	def genUri(self):
+		ip = "192.168.1.14"
+		return "nexyu://" + ip + ":" + str(self.port) + "?verif=" + self.nexServer.verifCode

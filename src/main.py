@@ -1,7 +1,6 @@
 #!/bin/python
 import sys
 import Server
-import pyqrcode
 import LoginWindow
 from PyQt4 import QtCore, QtGui
 
@@ -13,12 +12,14 @@ def main():
 	from twisted.internet import reactor
 
 	server = Server.Server(reactor)
-	loginWindow = LoginWindow()
+	loginWindow = LoginWindow.LoginWindow()
+	loginWindow.setQrCode(server.genUri())
 	loginWindow.show()
 	reactor.runReturn() #@UndefinedVariable
-	app.exec_()
+	to_return = app.exec_()
 	reactor.stop()
-	
+	sys.exit(to_return)
+
 if __name__ == "__main__":
 	main()
 
