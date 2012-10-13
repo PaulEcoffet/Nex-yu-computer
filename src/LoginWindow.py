@@ -11,5 +11,5 @@ class LoginWindow(QtGui.QWidget, ui.login.Ui_loginWindow):
 	def setQrCode(self, uri):
 		qrcode = ImageQt.ImageQt(pyqrcode.MakeQRImage(uri, block_in_pixels=6, border_in_blocks=0))
 		pixmap = QtGui.QPixmap.fromImage(qrcode)
-		self.qrCodeContainer.setPixmap(pixmap.scaled(200,200))
+		self.qrCodeContainer.setPixmap(pixmap)
 		

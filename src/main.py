@@ -2,7 +2,7 @@
 import sys
 import Server
 import LoginWindow
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 
 def main():
 	"""Main function"""
@@ -17,7 +17,7 @@ def main():
 	loginWindow.show()
 	reactor.runReturn() #@UndefinedVariable
 	to_return = app.exec_()
-	reactor.stop()
+	reactor.stop() #@UndefinedVariable
 	sys.exit(to_return)
 
 if __name__ == "__main__":

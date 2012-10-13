@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'login.ui'
+# Form implementation generated from reading ui file 'Login\login.ui'
 #
-# Created: Fri Oct 12 21:13:47 2012
+# Created: Sat Oct 13 14:27:33 2012
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,8 +17,6 @@ except AttributeError:
 class Ui_loginWindow(object):
     def setupUi(self, loginWindow):
         loginWindow.setObjectName(_fromUtf8("loginWindow"))
-        loginWindow.setEnabled(True)
-        loginWindow.resize(440, 433)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -27,10 +25,9 @@ class Ui_loginWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/login/NexYuLogo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         loginWindow.setWindowIcon(icon)
-        self.verticalLayout = QtGui.QVBoxLayout(loginWindow)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.WindowLayout = QtGui.QVBoxLayout(loginWindow)
+        self.WindowLayout.setObjectName(_fromUtf8("WindowLayout"))
         self.TitleLayout = QtGui.QHBoxLayout()
-        self.TitleLayout.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
         self.TitleLayout.setObjectName(_fromUtf8("TitleLayout"))
         self.logoTitle = QtGui.QLabel(loginWindow)
         self.logoTitle.setEnabled(True)
@@ -49,7 +46,7 @@ class Ui_loginWindow(object):
         self.TitleLayout.addWidget(self.logoTitle)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.TitleLayout.addItem(spacerItem)
-        self.verticalLayout.addLayout(self.TitleLayout)
+        self.WindowLayout.addLayout(self.TitleLayout)
         self.bodyLayout = QtGui.QVBoxLayout()
         self.bodyLayout.setObjectName(_fromUtf8("bodyLayout"))
         self.howToScan = QtGui.QLabel(loginWindow)
@@ -58,6 +55,7 @@ class Ui_loginWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.howToScan.sizePolicy().hasHeightForWidth())
         self.howToScan.setSizePolicy(sizePolicy)
+        self.howToScan.setScaledContents(False)
         self.howToScan.setWordWrap(True)
         self.howToScan.setObjectName(_fromUtf8("howToScan"))
         self.bodyLayout.addWidget(self.howToScan)
@@ -78,8 +76,8 @@ class Ui_loginWindow(object):
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.qrCodeLayout.addItem(spacerItem2)
         self.bodyLayout.addLayout(self.qrCodeLayout)
-        self.verticalLayout.addLayout(self.bodyLayout)
-        self.verticalLayout.setStretch(1, 1)
+        self.WindowLayout.addLayout(self.bodyLayout)
+        self.WindowLayout.setStretch(1, 1)
 
         self.retranslateUi(loginWindow)
         QtCore.QMetaObject.connectSlotsByName(loginWindow)
