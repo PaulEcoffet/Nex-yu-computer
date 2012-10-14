@@ -4,7 +4,6 @@ from twisted.internet import protocol
 from twisted.protocols import basic
 from twisted.internet import stdio
 import json
-import string
 import utils
 import socket
 import terminal
@@ -36,6 +35,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 						self.factory.io.write("{} has failed".format(smsSent["id"]))
 				elif networkMessage["type"] == "ContactsList":
 					self.contactsList = networkMessage["data"]
+					send["type"] = "ok"
 					self.factory.io.write("Contact list received")
 			elif networkMessage["type"] == "verifCode":
 				if(networkMessage["data"] == self.factory.verifCode):
@@ -47,6 +47,8 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 					send["type"] = "error"
 					send["data"] = {"message": "Wrong verifCode"}
 					disconnect = True
+			else:
+				self.factory.io.write("unknow message:" + line)
 			self.sendString(json.dumps(send))
 			if disconnect is True:
 				self.transport.loseConnection()
@@ -54,7 +56,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
 	def sendSMS(self, number, body):
 		if number is not None and number != "":
-			sms = {"recipient": unicode(number), "body":unicode(body), "id": int(self.factory.smsId)}
+			sms = {"recipient": str(number), "body":str(body), "id": int(self.factory.smsId)}
 			self.factory.smsId += 1
 			self.sendString(json.dumps({"type":"messageToCell", "data":sms}))
 		else:

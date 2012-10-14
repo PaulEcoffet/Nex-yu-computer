@@ -15,6 +15,9 @@ class IOTerminal(basic.LineOnlyReceiver):
 		self.write("")
 
 	def lineReceived(self, line):
+		print line
+		line = line.encode('raw_unicode_escape').decode('utf-8')
+		print line
 		if self.server is not None and line != "":
 			if line.find('/') == 0:
 				words = string.split(line, " ")
@@ -36,7 +39,7 @@ class IOTerminal(basic.LineOnlyReceiver):
 		
 	def setDefaultConversation(self, name):
 		for contact in self.server.contactsList :
-			if(contact["name"].find(name)):
+			if name in contact["name"]:
 				self.defaultContact["name"] = contact["name"]
 				self.defaultContact["number"] = contact["phoneNumbers"][0]["number"]
 				break
@@ -48,6 +51,6 @@ class IOTerminal(basic.LineOnlyReceiver):
 		self.lastSender = message["sender"]
 		name = message["sender"]
 		for contact in self.server.contactsList :
-			if(contact["phoneNumbers"][0]["number"].find(name)):
+			if name in contact["phoneNumbers"][0]["number"]:
 				name = contact["name"]
 		self.write("{} sent {}".format(name, message["body"]))
