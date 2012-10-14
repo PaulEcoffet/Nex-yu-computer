@@ -6,6 +6,8 @@ from twisted.internet import stdio
 import json
 import string
 import utils
+from twisted.names.client import getHostByName
+import socket
 
 class NexYuServProtocol(basic.Int32StringReceiver):
 
@@ -128,5 +130,7 @@ class Server:
 				print "Listening to port", self.port
 	
 	def genUri(self):
-		ip = "192.168.1.14"
+		ip = socket.gethostbyname(socket.gethostname()) #TODO Ugly workaround, 
+														#shouldn't work everywhere. 
+														#Will be fix with global IP and uPnP
 		return "nexyu://" + ip + ":" + str(self.port) + "?verif=" + self.nexServer.verifCode
