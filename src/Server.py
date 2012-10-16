@@ -48,7 +48,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 					send["data"] = {"message": "Wrong verifCode"}
 					disconnect = True
 			else:
-				self.factory.io.write("unknow message:" + line, False)
+				self.factory.io.write("unknown message:" + line, False)
 			self.sendString(json.dumps(send))
 			if disconnect:
 				self.transport.loseConnection()
