@@ -21,7 +21,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 		except:
 				self.factory.io.write("Wrong JSON")
 		else:
-			if self.verified is True:
+			if self.verified:
 				if networkMessage["type"] == "message":
 					message = networkMessage["data"]
 					self.factory.io.displaySMS(message)
@@ -29,33 +29,33 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 				elif networkMessage["type"] == "SMSSent":
 					smsSent = networkMessage["data"]
 					if smsSent["result"] == 0 :
-						self.factory.io.write("{} is a success".format(smsSent["id"]))
+						self.factory.io.write("{} is a success".format(smsSent["id"]), False)
 						send["type"] = "ok"
 					else:
-						self.factory.io.write("{} has failed".format(smsSent["id"]))
+						self.factory.io.write("{} has failed".format(smsSent["id"]), False)
 				elif networkMessage["type"] == "ContactsList":
 					self.contactsList = networkMessage["data"]
 					send["type"] = "ok"
-					self.factory.io.write("Contact list received")
+					self.factory.io.write("Contact list received", False)
 			elif networkMessage["type"] == "verifCode":
-				if(networkMessage["data"] == self.factory.verifCode):
+				if networkMessage["data"] == self.factory.verifCode:
 					self.verified = True
-					self.factory.io.write("verified")
+					self.factory.io.write("verified", False)
 					send["type"] = "askContacts"
 				else:
-					self.factory.io.write("Wrong verifCode")
+					self.factory.io.write("Wrong verifCode", False)
 					send["type"] = "error"
 					send["data"] = {"message": "Wrong verifCode"}
 					disconnect = True
 			else:
-				self.factory.io.write("unknow message:" + line)
+				self.factory.io.write("unknow message:" + line, False)
 			self.sendString(json.dumps(send))
-			if disconnect is True:
+			if disconnect:
 				self.transport.loseConnection()
 
 
 	def sendSMS(self, number, body):
-		if number is not None and number != "":
+		if number:
 			sms = {"recipient": str(number), "body":str(body), "id": int(self.factory.smsId)}
 			self.factory.smsId += 1
 			self.sendString(json.dumps({"type":"messageToCell", "data":sms}))

@@ -12,29 +12,33 @@ class IOTerminal(basic.LineOnlyReceiver):
 		self.lastSender = ""
 
 	def connectionMade(self):
-		self.write("")
+		self.prompt()
 
 	def lineReceived(self, line):
-		print line
 		line = line.encode('raw_unicode_escape').decode('utf-8')
-		print line
-		if self.server is not None and line != "":
+		message = ""
+		if self.server and line:
 			if line.find('/') == 0:
 				words = string.split(line, " ")
 				command = words[0]
 				if command == "/set":
-					self.setDefaultConversation(string.join(words[1:], ' '))
+					message = self.setDefaultConversation(string.join(words[1:], ' '))
 				elif command == "/r":
 					self.server.sendSMS(self.lastSender, string.join(words[1:], ' '))
 			else:
 				self.server.sendSMS(self.defaultContact["number"], line)
 		else:
-			self.transport.write("\nError (not connected or line empty).\n")
-			self.transport.write(">>> ")
+			message = "Error (not connected or line empty)."
+		self.write(message)
 	
-	def write(self, line):
-		if(line is not None or line != ""):
-			self.transport.write("\n" + str(line) + "\n")
+	def write(self, line = None, userinput=True):
+		if not userinput:
+			self.transport.write("\n")
+		if line:
+			self.transport.write(str(line) + "\n")
+		self.prompt()
+		
+	def prompt(self):
 		self.transport.write("{}>>> ".format(self.defaultContact["name"]))
 		
 	def setDefaultConversation(self, name):
@@ -43,8 +47,8 @@ class IOTerminal(basic.LineOnlyReceiver):
 				self.defaultContact["name"] = contact["name"]
 				self.defaultContact["number"] = contact["phoneNumbers"][0]["number"]
 				break
-		self.write("{} with the phone number {} has been set as default contact".format(\
-						self.defaultContact["name"], self.defaultContact["number"]))
+		return "{} with the phone number {} has been set as default contact".format(
+						self.defaultContact["name"], self.defaultContact["number"])
 
 	def displaySMS(self, message):
 		# FIXME VERY UGLY FUNCTION !!!!
@@ -53,4 +57,4 @@ class IOTerminal(basic.LineOnlyReceiver):
 		for contact in self.server.contactsList :
 			if name in contact["phoneNumbers"][0]["number"]:
 				name = contact["name"]
-		self.write("{} sent {}".format(name, message["body"]))
+		self.write("{} sent {}".format(name, message["body"]), False)
