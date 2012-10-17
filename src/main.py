@@ -6,6 +6,7 @@ import Server
 import LoginWindow
 from PyQt4 import QtGui
 
+
 def main():
     """Main function"""
     app = QtGui.QApplication(sys.argv)
@@ -18,9 +19,8 @@ def main():
     loginWindow.setQrCode(server.genUri())
     loginWindow.show()
     reactor.runReturn()
-    to_return = app.exec_()
+    app.exec_()
     reactor.stop()
-    sys.exit(to_return)
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
