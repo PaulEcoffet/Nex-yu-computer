@@ -3,7 +3,7 @@ if os.name == "nt":
     from cx_Freeze import setup, Executable
     main = Executable("main.py", 
 					icon = "../res/icon.ico",
-					)
+				)
     setup(
         name = "Nex yu computer",
         version = "0.1",
