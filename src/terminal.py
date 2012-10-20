@@ -26,6 +26,8 @@ class IOTerminal(basic.LineOnlyReceiver):
                     message = self.setDefaultConversation(string.join(words[1:], ' '))
                 elif command == "/r":
                     self.server.sendSMS(self.lastSender, string.join(words[1:], ' '))
+                elif command == "/disconnect":
+                    self.server.disconnect()
             else:
                 self.server.sendSMS(self.defaultContact["number"], line)
         else:

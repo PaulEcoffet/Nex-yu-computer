@@ -52,7 +52,10 @@ class NexYuServProtocol(basic.Int32StringReceiver):
                 self.factory.io.write("unknown message:" + line, False)
             self.sendString(json.dumps(send))
             if disconnect:
-                self.transport.loseConnection()
+                self.disconnect()
+    
+    def disconnect(self):
+        self.transport.loseConnection()
 
     def sendSMS(self, number, body):
         if number:
@@ -107,7 +110,7 @@ class Server:
                 print "Listening to port", self.port
 
     def genUri(self):
-        ip = socket.gethostbyname(socket.gethostname())  # TODO Ugly workaround,
-                                                         # shouldn't work everywhere.
-                                                         # Will be fix with global IP and uPnP
+        ip = socket.gethostbyname(socket.gethostname())     # TODO Ugly workaround,
+                                                            # shouldn't work everywhere.
+                                                            # Will be fix with global IP and uPnP
         return "nexyu://" + ip + ":" + str(self.port) + "?verif=" + self.nexServer.verifCode
