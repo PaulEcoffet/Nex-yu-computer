@@ -30,10 +30,12 @@ class NexYuServProtocol(basic.Int32StringReceiver):
                 elif networkMessage["type"] == "SMSSent":
                     smsSent = networkMessage["data"]
                     if smsSent["result"] == 0:
-                        self.factory.io.write("{} is a success".format(smsSent["id"]), False)
+                        self.factory.io.write("{} is a success".format(
+                                                        smsSent["id"]), False)
                         send["type"] = "ok"
                     else:
-                        self.factory.io.write("{} has failed".format(smsSent["id"]), False)
+                        self.factory.io.write("{} has failed".format(
+                                                        smsSent["id"]), False)
                 elif networkMessage["type"] == "ContactsList":
                     self.contactsList = networkMessage["data"]
                     send["type"] = "ok"
@@ -53,13 +55,14 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             self.sendString(json.dumps(send))
             if disconnect:
                 self.disconnect()
-    
+
     def disconnect(self):
         self.transport.loseConnection()
 
     def sendSMS(self, number, body):
         if number:
-            sms = {"recipient": str(number), "body": str(body), "id": int(self.factory.smsId)}
+            sms = {"recipient": str(number), "body": str(body),
+                   "id": int(self.factory.smsId)}
             self.factory.smsId += 1
             self.sendString(json.dumps({"type": "messageToCell", "data": sms}))
         else:
@@ -110,7 +113,7 @@ class Server:
                 print "Listening to port", self.port
 
     def genUri(self):
-        ip = socket.gethostbyname(socket.gethostname())     # TODO Ugly workaround,
-                                                            # shouldn't work everywhere.
-                                                            # Will be fix with global IP and uPnP
-        return "nexyu://" + ip + ":" + str(self.port) + "?verif=" + self.nexServer.verifCode
+        # TODO ip is found with an ugly workaround
+        ip = socket.gethostbyname(socket.gethostname())
+        return "nexyu://" + ip + ":" + str(self.port) +\
+             "?verif=" + self.nexServer.verifCode

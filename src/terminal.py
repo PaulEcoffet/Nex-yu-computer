@@ -23,9 +23,11 @@ class IOTerminal(basic.LineOnlyReceiver):
                 words = string.split(line, " ")
                 command = words[0]
                 if command == "/set":
-                    message = self.setDefaultConversation(string.join(words[1:], ' '))
+                    message = self.setDefaultConversation(
+                                    string.join(words[1:], ' '))
                 elif command == "/r":
-                    self.server.sendSMS(self.lastSender, string.join(words[1:], ' '))
+                    self.server.sendSMS(self.lastSender, string.join(
+                                    words[1:], ' '))
                 elif command == "/disconnect":
                     self.server.disconnect()
             else:
@@ -50,8 +52,9 @@ class IOTerminal(basic.LineOnlyReceiver):
                 self.defaultContact["name"] = contact["name"]
                 self.defaultContact["number"] = contact["phoneNumbers"][0]["number"]
                 break
-        return "{} with the phone number {} has been set as default contact".format(
-                        self.defaultContact["name"], self.defaultContact["number"])
+        message = "{} with the phone number {} has been set as default contact"
+        return message.format(
+                    self.defaultContact["name"], self.defaultContact["number"])
 
     def displaySMS(self, message):
         # FIXME VERY UGLY FUNCTION !!!!
