@@ -72,8 +72,9 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         self.factory.io.server = self
         self.verified = False
         self.factory.connections += 1
-        self.factory.io.write("Connected")
+        self.factory.io.write("Connected", False)
         if(self.factory.connections == 1):
+            self.transport.setTcpKeepAlive(1)
             self.sendString(json.dumps({"type": "askVerifCode", "data": None}))
         else:
             self.transport.loseConnection()
