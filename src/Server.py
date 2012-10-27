@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from twisted.internet import protocol
+from twisted.internet import protocol, ssl
 from twisted.protocols import basic
 from twisted.internet import stdio
 import json
@@ -106,9 +106,12 @@ class Server:
         success = False
         while not success:
             try:
-                self.reactor.listenTCP(self.port, self.nexServer)
+                self.reactor.listenSSL(self.port, self.nexServer,
+                    ssl.ClientContextFactory())
+                #self.reactor.listenTCP(self.port, self.nexServer)
             except:
                 self.port += 1
+
             else:
                 success = True
                 print "Listening to port", self.port
