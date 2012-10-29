@@ -125,4 +125,5 @@ class Server:
         # TODO ip is found with an ugly workaround
         ip = socket.gethostbyname(socket.gethostname())
         return "nexyu://" + ip + ":" + str(self.port) +\
-            "?verif=" + self.nexServer.verifCode
+            "?f=" + sslHelper.get_cert_fingerprint(os.path.join(
+                        os.path.realpath("../res"), "ssl/nexyu.crt"))

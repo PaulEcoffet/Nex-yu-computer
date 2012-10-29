@@ -39,8 +39,7 @@ def get_self_signed_cert(cert_dir):
         cert.gmtime_adj_notAfter(10 * 365 * 24 * 60 * 60)
         cert.set_issuer(cert.get_subject())
         cert.set_pubkey(k)
-        cert.sign(k, 'sha1')
-        print cert.digest('sha1')
+        cert.sign(k, "sha1")
 
         open(os.path.join(cert_dir, CERT_FILE), "wt").write(
             crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
@@ -48,3 +47,11 @@ def get_self_signed_cert(cert_dir):
             crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
     return (os.path.join(cert_dir, CERT_FILE),
             os.path.join(cert_dir, KEY_FILE))
+
+
+def get_cert_fingerprint(file):
+    if os.path.exists(file):
+        cert = crypto.load_certificate(crypto.FILETYPE_PEM,
+                                open(file, "r").read())
+        digest = str(cert.digest("sha1"))
+        return digest.translate(None, ":")
