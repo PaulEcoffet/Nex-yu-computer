@@ -4,7 +4,6 @@ from twisted.internet import protocol, ssl
 from twisted.protocols import basic
 from twisted.internet import stdio
 import json
-import utils
 import socket
 import terminal
 import sslHelper
@@ -25,37 +24,32 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         except:
                 self.factory.io.write("Wrong JSON")
         else:
-            if self.verified:
-                if networkMessage["type"] == "message":
-                    message = networkMessage["data"]
-                    self.factory.io.displaySMS(message)
+            if networkMessage["type"] == "ready":
+                self.sendString(json.dumps({"type": "askContacts",
+                                "data": None}))
+                self.transport.setTcpKeepAlive(1)
+
+            elif networkMessage["type"] == "message":
+                message = networkMessage["data"]
+                self.factory.io.displaySMS(message)
+                send["type"] = "ok"
+            elif networkMessage["type"] == "SMSSent":
+                smsSent = networkMessage["data"]
+                if smsSent["result"] == 0:
+                    self.factory.io.write("{} is a success".format(
+                                                    smsSent["id"]), False)
                     send["type"] = "ok"
-                elif networkMessage["type"] == "SMSSent":
-                    smsSent = networkMessage["data"]
-                    if smsSent["result"] == 0:
-                        self.factory.io.write("{} is a success".format(
-                                                        smsSent["id"]), False)
-                        send["type"] = "ok"
-                    else:
-                        self.factory.io.write("{} has failed".format(
-                                                        smsSent["id"]), False)
-                elif networkMessage["type"] == "ContactsList":
-                    self.contactsList = networkMessage["data"]
-                    send["type"] = "ok"
-                    self.factory.io.write("Contact list received", False)
-            elif networkMessage["type"] == "verifCode":
-                if networkMessage["data"] == self.factory.verifCode:
-                    self.verified = True
-                    self.factory.io.write("verified", False)
-                    send["type"] = "askContacts"
                 else:
-                    self.factory.io.write("Wrong verifCode", False)
-                    send["type"] = "error"
-                    send["data"] = {"message": "Wrong verifCode"}
-                    disconnect = True
+                    self.factory.io.write("{} has failed".format(
+                                                    smsSent["id"]), False)
+            elif networkMessage["type"] == "ContactsList":
+                self.contactsList = networkMessage["data"]
+                send["type"] = "ok"
+                self.factory.io.write("Contact list received", False)
             else:
                 self.factory.io.write("unknown message:" + line, False)
-            self.sendString(json.dumps(send))
+                self.sendString(json.dumps(send))
+
             if disconnect:
                 self.disconnect()
 
@@ -73,17 +67,16 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
     def connectionMade(self):
         self.factory.io.server = self
-        self.verified = False
         self.factory.connections += 1
         self.factory.io.write("Connected", False)
-        if(self.factory.connections == 1):
-            self.transport.setTcpKeepAlive(1)
-            self.sendString(json.dumps({"type": "askVerifCode", "data": None}))
+        if(self.factory.connections != 1):
+            self.disconnect()
         else:
-            self.transport.loseConnection()
+            self.sendString(json.dumps({"type": "ok", "data": None}))
 
     def connectionLost(self, reason):
         self.factory.io.write("Disconnected")
+        reason.printTraceback()
         self.factory.connections -= 1
         if self.factory.connections < 1:
             self.factory.io.server = None
@@ -96,7 +89,6 @@ class NexYuServFactory(protocol.ServerFactory):
         self.io = io
         self.smsId = 1
         self.connections = 0
-        self.verifCode = utils.code_generator()
 
 
 class Server:
