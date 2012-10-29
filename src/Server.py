@@ -7,6 +7,9 @@ import json
 import utils
 import socket
 import terminal
+import sslHelper
+from twisted.internet.error import CannotListenError
+import os.path
 
 
 class NexYuServProtocol(basic.Int32StringReceiver):
@@ -103,15 +106,17 @@ class Server:
         io = terminal.IOTerminal()
         self.nexServer = NexYuServFactory(io)
         stdio.StandardIO(io)
+        path = os.path.join(os.path.realpath("../res"), "ssl")
+        certificateFileName, privateKeyFileName = \
+            sslHelper.get_self_signed_cert(path)
         success = False
         while not success:
             try:
-                self.reactor.listenSSL(self.port, self.nexServer,
-                    ssl.ClientContextFactory())
-                #self.reactor.listenTCP(self.port, self.nexServer)
-            except:
+                ctxfactory = ssl.DefaultOpenSSLContextFactory(
+                                    privateKeyFileName, certificateFileName)
+                self.reactor.listenSSL(self.port, self.nexServer, ctxfactory)
+            except CannotListenError:
                 self.port += 1
-
             else:
                 success = True
                 print "Listening to port", self.port
@@ -120,4 +125,4 @@ class Server:
         # TODO ip is found with an ugly workaround
         ip = socket.gethostbyname(socket.gethostname())
         return "nexyu://" + ip + ":" + str(self.port) +\
-             "?verif=" + self.nexServer.verifCode
+            "?verif=" + self.nexServer.verifCode
