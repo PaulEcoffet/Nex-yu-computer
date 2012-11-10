@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="contactBox">
+    <file>newMessageAlert.png</file>
+  </qresource>
+</RCC>
