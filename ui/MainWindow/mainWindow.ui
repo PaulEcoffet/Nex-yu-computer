@@ -104,8 +104,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>61</width>
-          <height>36</height>
+          <width>55</width>
+          <height>38</height>
          </size>
         </property>
         <property name="icon">
@@ -114,8 +114,8 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>61</width>
-          <height>36</height>
+          <width>55</width>
+          <height>38</height>
          </size>
         </property>
        </widget>
@@ -130,8 +130,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>60</width>
-          <height>36</height>
+          <width>54</width>
+          <height>38</height>
          </size>
         </property>
         <property name="text">
@@ -143,8 +143,8 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>61</width>
-          <height>36</height>
+          <width>54</width>
+          <height>38</height>
          </size>
         </property>
        </widget>
@@ -227,7 +227,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>201</width>
+           <width>199</width>
            <height>515</height>
           </rect>
          </property>
@@ -373,7 +373,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>576</width>
+           <width>578</width>
            <height>388</height>
           </rect>
          </property>

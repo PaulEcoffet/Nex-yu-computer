@@ -3,8 +3,8 @@
     <file>newMessageAlert.png</file>
   </qresource>
   <qresource prefix="toolbars">
-    <file>search.png</file>
     <file>new_message.png</file>
+    <file>search.png</file>
   </qresource>
   <qresource prefix="editMessage">
     <file>keyboard_ic.png</file>
