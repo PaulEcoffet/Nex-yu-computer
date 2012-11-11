@@ -14,6 +14,10 @@
   <property name="windowTitle">
    <string>Nex yu</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="mainWindow.qrc">
+    <normaloff>:/windowDecorators/icon.ico</normaloff>:/windowDecorators/icon.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">*
 {
@@ -38,6 +42,84 @@
    <property name="spacing">
     <number>0</number>
    </property>
+   <item row="1" column="0">
+    <widget class="QFrame" name="contactsBoxListContainer">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>250</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#contactsBoxListContainer
+{
+	background-color: white;
+	border-right: 1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(83, 83, 83, 255), stop:0.628141 rgba(83, 83, 83, 0));
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="ContactsBoxList" name="contactsBoxList">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>199</width>
+           <height>515</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#contactsBoxList
+{
+	background-color:white;
+}</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="Toolbar" name="contactsToolbar">
      <property name="sizePolicy">
@@ -165,31 +247,12 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QFrame" name="contactsBoxListContainer">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>250</width>
-       <height>16777215</height>
-      </size>
-     </property>
+   <item row="1" column="1">
+    <widget class="QFrame" name="conversationContentContainer">
      <property name="styleSheet">
-      <string notr="true">#contactsBoxListContainer
+      <string notr="true">#conversationContentContainer
 {
 	background-color: white;
-	border-right: 1px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(83, 83, 83, 255), stop:0.628141 rgba(83, 83, 83, 0));
 }</string>
      </property>
      <property name="frameShape">
@@ -201,7 +264,7 @@
      <property name="lineWidth">
       <number>0</number>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -209,7 +272,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QScrollArea" name="scrollArea">
+       <widget class="QScrollArea" name="scrollArea_2">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -222,23 +285,114 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <widget class="ContactsBoxList" name="contactsBoxList">
+        <widget class="QWidget" name="conversationContent">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>199</width>
-           <height>515</height>
+           <width>578</width>
+           <height>388</height>
           </rect>
          </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
          <property name="styleSheet">
-          <string notr="true">#contactsBoxList
+          <string notr="true">#conversationContent
 {
 	background-color:white;
 }</string>
          </property>
         </widget>
        </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="messageEditGrid">
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="mainWindow.qrc">:/editMessage/keyboard_ic.png</pixmap>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="Line" name="messageEditLeftBorder">
+            <property name="minimumSize">
+             <size>
+              <width>5</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#messageEditLeftBorder
+{
+	color: #ffbb33;
+}</string>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>4</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QPlainTextEdit" name="messageEdit">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>125</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#messageEdit
+{
+	border-top: 1px solid #808080;
+	margin: 17px 0px 0px 0px;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(159, 159, 159, 255), stop:0.0352261 rgba(255, 255, 255, 255))
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -326,147 +480,6 @@
          </item>
         </layout>
        </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QFrame" name="conversationContentContainer">
-     <property name="styleSheet">
-      <string notr="true">#conversationContentContainer
-{
-	background-color: white;
-}</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="lineWidth">
-      <number>0</number>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <property name="margin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QScrollArea" name="scrollArea_2">
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
-        <property name="lineWidth">
-         <number>0</number>
-        </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="conversationContent">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>578</width>
-           <height>388</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#conversationContent
-{
-	background-color:white;
-}</string>
-         </property>
-        </widget>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="messageEditGrid">
-        <property name="leftMargin">
-         <number>10</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="mainWindow.qrc">:/editMessage/keyboard_ic.png</pixmap>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="Line" name="messageEditLeftBorder">
-            <property name="styleSheet">
-             <string notr="true">#messageEditLeftBorder
-{
-	color: #ffbb33;
-}</string>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <property name="lineWidth">
-             <number>4</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="1" rowspan="2">
-         <widget class="QPlainTextEdit" name="messageEdit">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>125</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">#messageEdit
-{
-	border-top: 1px solid #808080;
-	margin: 17px 0px 0px 0px;
-
-}</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="lineWidth">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>

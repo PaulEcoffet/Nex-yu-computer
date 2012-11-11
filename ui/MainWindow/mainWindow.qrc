@@ -2,6 +2,12 @@
   <qresource prefix="contactBox">
     <file>newMessageAlert.png</file>
   </qresource>
+  <qresource prefix="windowDecorators">
+    <file>icon.ico</file>
+  </qresource>
+  <qresource prefix="conversationMessage">
+    <file>left_arrow.png</file>
+  </qresource>
   <qresource prefix="toolbars">
     <file>new_message.png</file>
     <file>search.png</file>
