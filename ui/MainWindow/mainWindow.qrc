@@ -9,10 +9,14 @@
     <file>left_arrow.png</file>
   </qresource>
   <qresource prefix="toolbars">
+    <file>disconnect.png</file>
     <file>new_message.png</file>
+    <file>options.png</file>
+    <file>LeftBorder.png</file>
     <file>search.png</file>
   </qresource>
   <qresource prefix="editMessage">
+    <file>cancelSending2.png</file>
     <file>keyboard_ic.png</file>
   </qresource>
 </RCC>
