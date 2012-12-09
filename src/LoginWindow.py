@@ -3,7 +3,10 @@
 from PyQt4 import QtGui
 import ui.login
 import pyqrcode
-from PIL import ImageQt
+try:
+    from PIL import ImageQt
+except:
+    import ImageQt
 
 
 class LoginWindow(QtGui.QWidget, ui.login.Ui_loginWindow):

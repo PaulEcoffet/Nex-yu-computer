@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import string
+import chardet
 from twisted.protocols import basic
 
 
@@ -16,7 +17,8 @@ class IOTerminal(basic.LineOnlyReceiver):
         self.prompt()
 
     def lineReceived(self, line):
-        line = line.encode('raw_unicode_escape').decode('utf-8')
+        encoding = chardet.detect(line)
+	line = line.decode(encoding["encoding"])
         message = ""
         if self.server and line:
             if line.find('/') == 0:
@@ -50,7 +52,8 @@ class IOTerminal(basic.LineOnlyReceiver):
         for contact in self.server.contactsList:
             if name in contact["name"]:
                 self.defaultContact["name"] = contact["name"]
-                self.defaultContact["number"] = contact["phoneNumbers"][0]["number"]
+                self.defaultContact["number"] = \
+			contact["phoneNumbers"][0]["number"]
                 break
         message = "{} with the phone number {} has been set as default contact"
         return message.format(
