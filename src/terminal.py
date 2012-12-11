@@ -18,7 +18,7 @@ class IOTerminal(basic.LineOnlyReceiver):
 
     def lineReceived(self, line):
         encoding = chardet.detect(line)
-	line = line.decode(encoding["encoding"])
+        print(encoding["encoding"], line)
         message = ""
         if self.server and line:
             if line.find('/') == 0:
@@ -26,10 +26,10 @@ class IOTerminal(basic.LineOnlyReceiver):
                 command = words[0]
                 if command == "/set":
                     message = self.setDefaultConversation(
-                                    string.join(words[1:], ' '))
+                                    u" ".join(words[1:]))
                 elif command == "/r":
-                    self.server.sendSMS(self.lastSender, string.join(
-                                    words[1:], ' '))
+                    self.server.sendSMS(self.lastSender, u" ".join(
+                                    words[1:]))
                 elif command == "/disconnect":
                     self.server.disconnect()
             else:
@@ -42,7 +42,7 @@ class IOTerminal(basic.LineOnlyReceiver):
         if not userinput:
             self.transport.write("\n")
         if line:
-            self.transport.write(str(line) + "\n")
+            self.transport.write(line.encode("utf-8") + "\n")
         self.prompt()
 
     def prompt(self):
@@ -66,4 +66,4 @@ class IOTerminal(basic.LineOnlyReceiver):
         for contact in self.server.contactsList:
             if name in contact["phoneNumbers"][0]["number"]:
                 name = contact["name"]
-        self.write("{} sent {}".format(name, message["body"]), False)
+        self.write(u"{} sent {}".format(name, message["body"]), False)

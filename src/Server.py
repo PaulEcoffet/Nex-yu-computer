@@ -58,7 +58,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
     def sendSMS(self, number, body):
         if number:
-            sms = {"recipient": str(number), "body": str(body),
+            sms = {"recipient": unicode(number), "body": unicode(body),
                    "id": int(self.factory.smsId)}
             self.factory.smsId += 1
             self.sendString(json.dumps({"type": "messageToCell", "data": sms}))
