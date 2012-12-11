@@ -39,3 +39,6 @@ nosetests.xml
 
 # Project specific
 res/ssl/*
+
+# Vim
+*.swp
