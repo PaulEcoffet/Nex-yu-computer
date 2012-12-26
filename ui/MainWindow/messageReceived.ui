@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>75</height>
+    <width>707</width>
+    <height>89</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,30 +39,14 @@
     <number>10</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="bottomMargin">
-    <number>2</number>
+    <number>3</number>
    </property>
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" rowspan="2">
-    <widget class="QLabel" name="icon">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="mainWindow.qrc">:/conversationMessage/left_arrow.png</pixmap>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -82,14 +66,15 @@
        <property name="styleSheet">
         <string notr="true">#messageReceivedLeftBorder
 {
-	color: #09c;
+	background-color: #09c;
+	color: #09c
 }</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
        </property>
        <property name="lineWidth">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -104,7 +89,6 @@
       <string notr="true">#messageReceived
 {
 	color: #4d4d4d;
-	margin-top: 3px;
 }</string>
      </property>
      <property name="text">
@@ -124,12 +108,18 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="topMargin">
-      <number>11</number>
+      <number>0</number>
      </property>
      <item>
-      <widget class="Line" name="messageReceivedTopBorderLeft">
+      <widget class="Line" name="messageReceivedTopLeftBorder">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="styleSheet">
-        <string notr="true">#messageReceivedTopBorderLeft
+        <string notr="true">#messageReceivedTopLeftBorder
 {
 	color: #808080;
 }</string>
@@ -167,7 +157,10 @@
       </widget>
      </item>
      <item>
-      <widget class="Line" name="messageReceivedTopBorderRight">
+      <widget class="Line" name="messageReceivedTopRightBorder">
+       <property name="windowModality">
+        <enum>Qt::NonModal</enum>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -176,7 +169,7 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>50</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
@@ -187,7 +180,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#messageReceivedTopBorderRight
+        <string notr="true">#messageReceivedTopRightBorder
 {
 	color: #808080;
 }</string>
@@ -201,6 +194,22 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="0" column="0" rowspan="2">
+    <widget class="QLabel" name="icon">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="mainWindow.qrc">:/conversationMessage/left_arrow.png</pixmap>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>81</height>
+    <width>707</width>
+    <height>90</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,162 +25,88 @@
 	background-color: white;
 }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <property name="leftMargin">
-    <number>10</number>
-   </property>
-   <property name="topMargin">
-    <number>10</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>2</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,1" columnstretch="1,0">
    <property name="spacing">
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="mainWindow.qrc">:/conversationMessage/left_arrow.png</pixmap>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="Line" name="messageReceivedTopBorderLeft">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#messageReceivedTopBorderLeft
-{
-	color: #808080;
-}</string>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="messageReceivedDate">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#messageReceivedDate
-{
-	font-size: 11px;
-	color: #808080;
-}</string>
-     </property>
-     <property name="text">
-      <string>Jeu, 1er Janv 1970</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <widget class="Line" name="messageReceivedTopBorderRight">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#messageReceivedTopBorderRight
-{
-	color: #808080;
-}</string>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="rightMargin">
-      <number>10</number>
-     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="label_3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="Line" name="messageSentTopLeftBorder">
+       <property name="styleSheet">
+        <string notr="true">#messageSentTopLeftBorder
+{
+	color: #808080;
+}</string>
        </property>
-       <property name="text">
-        <string>Message test pour tester quoi. Enfin, bref, le truc habituel, ça surprend personne en vrai, non, je me trompe ?</string>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="messageSentDate">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">#messageSentDate
+{
+	color: #808080;
+	margin-right: 2px;
+	margin-left: 2px;
+}</string>
+       </property>
        <property name="text">
-        <string/>
+        <string>Day, 11, 13:29</string>
        </property>
-       <property name="pixmap">
-        <pixmap resource="mainWindow.qrc">:/contactBox/newMessageAlert.png</pixmap>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="messageSentTopRightBorder">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#messageSentTopRightBorder
+{
+	color: #808080;
+}</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item row="2" column="1" rowspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="Line" name="messageReceivedLeftBorder">
+      <widget class="Line" name="messageSentRightBorder">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -192,9 +118,10 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#messageReceivedLeftBorder
+        <string notr="true">#messageSentRightBorder
 {
 	color: #09c;
+	background-color: #09c
 }</string>
        </property>
        <property name="frameShadow">
@@ -203,8 +130,78 @@
        <property name="lineWidth">
         <number>10</number>
        </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1" rowspan="2">
+    <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="mainWindow.qrc">:/conversationMessage/right_arrow.png</pixmap>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0">
+     <item>
+      <widget class="QLabel" name="messageSent">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#messageSent
+{
+	color: #4d4d4d;
+}</string>
+       </property>
+       <property name="text">
+        <string>Message test</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="messageSentStatut">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="mainWindow.qrc">:/Statut/statut_sending.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
        </property>
       </widget>
      </item>

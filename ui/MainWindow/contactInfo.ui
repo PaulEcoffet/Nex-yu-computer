@@ -106,7 +106,7 @@
  </widget>
  <resources>
   <include location="mainWindow.qrc"/>
-  <include location="../../../../../../../Python27/Lib/site-packages/PyQt4/mainWindow.qrc"/>
+  <include location="mainWindow.qrc"/>
  </resources>
  <connections/>
 </ui>
