@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Login\login.ui'
+# Form implementation generated from reading ui file 'Login/login.ui'
 #
-# Created: Sat Oct 13 14:27:33 2012
-#      by: PyQt4 UI code generator 4.9.5
+# Created: Wed Dec 26 18:13:53 2012
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +12,16 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_loginWindow(object):
     def setupUi(self, loginWindow):
@@ -83,7 +92,7 @@ class Ui_loginWindow(object):
         QtCore.QMetaObject.connectSlotsByName(loginWindow)
 
     def retranslateUi(self, loginWindow):
-        loginWindow.setWindowTitle(QtGui.QApplication.translate("loginWindow", "Nex yu - Login", None, QtGui.QApplication.UnicodeUTF8))
-        self.howToScan.setText(QtGui.QApplication.translate("loginWindow", "<html><head/><body><p>Scan this code with the Nex yu application on your Android so as to pair your devices, the connection will be done automatically.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        loginWindow.setWindowTitle(_translate("loginWindow", "Nex yu - Login", None))
+        self.howToScan.setText(_translate("loginWindow", "<html><head/><body><p>Scan this code with the Nex yu application on your Android so as to pair your devices, the connection will be done automatically.</p></body></html>", None))
 
 import login_rc
