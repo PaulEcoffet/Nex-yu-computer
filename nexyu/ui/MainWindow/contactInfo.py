@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/contactInfo.ui'
 #
-# Created: Wed Dec 26 18:13:53 2012
+# Created: Wed Dec 26 19:57:40 2012
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!

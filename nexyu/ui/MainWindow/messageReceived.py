@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/messageReceived.ui'
 #
-# Created: Wed Dec 26 18:13:53 2012
+# Created: Wed Dec 26 19:57:40 2012
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_messageReceivedContainer(object):
     def setupUi(self, messageReceivedContainer):
         messageReceivedContainer.setObjectName(_fromUtf8("messageReceivedContainer"))
-        messageReceivedContainer.resize(707, 89)
+        messageReceivedContainer.resize(707, 76)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

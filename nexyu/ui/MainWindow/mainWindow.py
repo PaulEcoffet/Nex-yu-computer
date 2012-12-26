@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/mainWindow.ui'
 #
-# Created: Wed Dec 26 18:13:53 2012
+# Created: Wed Dec 26 19:57:40 2012
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,7 +76,7 @@ class Ui_nexyuMain(object):
         self.scrollArea.setLineWidth(0)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
-        self.contactsBoxList = ContactsBoxList()
+        self.contactsBoxList = QtGui.QWidget()
         self.contactsBoxList.setGeometry(QtCore.QRect(0, 0, 199, 515))
         self.contactsBoxList.setStyleSheet(_fromUtf8("#contactsBoxList\n"
 "{\n"
@@ -92,7 +92,7 @@ class Ui_nexyuMain(object):
         self.scrollArea.setWidget(self.contactsBoxList)
         self.horizontalLayout_4.addWidget(self.scrollArea)
         self.gridLayout.addWidget(self.contactsBoxListContainer, 1, 0, 1, 1)
-        self.contactsToolbar = Toolbar(nexyuMain)
+        self.contactsToolbar = QtGui.QFrame(nexyuMain)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -115,7 +115,7 @@ class Ui_nexyuMain(object):
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.newMessageButton = imageButton(self.contactsToolbar)
+        self.newMessageButton = QtGui.QPushButton(self.contactsToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -128,7 +128,7 @@ class Ui_nexyuMain(object):
         self.newMessageButton.setIconSize(QtCore.QSize(55, 38))
         self.newMessageButton.setObjectName(_fromUtf8("newMessageButton"))
         self.horizontalLayout.addWidget(self.newMessageButton)
-        self.searchButton = imageButton(self.contactsToolbar)
+        self.searchButton = QtGui.QPushButton(self.contactsToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -272,7 +272,7 @@ class Ui_nexyuMain(object):
         self.verticalLayout.addLayout(self.messageEditGrid)
         self.verticalLayout.setStretch(0, 1)
         self.gridLayout.addWidget(self.conversationContentContainer, 1, 1, 1, 1)
-        self.conversationToolbar = Toolbar(nexyuMain)
+        self.conversationToolbar = QtGui.QFrame(nexyuMain)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -288,12 +288,12 @@ class Ui_nexyuMain(object):
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.contactsInfo = ContactInfo(self.conversationToolbar)
-        self.contactsInfo.setFrameShape(QtGui.QFrame.NoFrame)
-        self.contactsInfo.setFrameShadow(QtGui.QFrame.Plain)
-        self.contactsInfo.setLineWidth(0)
-        self.contactsInfo.setObjectName(_fromUtf8("contactsInfo"))
-        self.horizontalLayout_2.addWidget(self.contactsInfo)
+        self.contactInfo = QtGui.QFrame(self.conversationToolbar)
+        self.contactInfo.setFrameShape(QtGui.QFrame.NoFrame)
+        self.contactInfo.setFrameShadow(QtGui.QFrame.Plain)
+        self.contactInfo.setLineWidth(0)
+        self.contactInfo.setObjectName(_fromUtf8("contactInfo"))
+        self.horizontalLayout_2.addWidget(self.contactInfo)
         self.optionToolbar = QtGui.QFrame(self.conversationToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -315,7 +315,7 @@ class Ui_nexyuMain(object):
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         spacerItem5 = QtGui.QSpacerItem(10, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem5)
-        self.optionButton = imageButton(self.optionToolbar)
+        self.optionButton = QtGui.QPushButton(self.optionToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -338,7 +338,7 @@ class Ui_nexyuMain(object):
         self.optionButton.setFlat(False)
         self.optionButton.setObjectName(_fromUtf8("optionButton"))
         self.horizontalLayout_3.addWidget(self.optionButton)
-        self.disconnectButton = imageButton(self.optionToolbar)
+        self.disconnectButton = QtGui.QPushButton(self.optionToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -370,8 +370,4 @@ class Ui_nexyuMain(object):
     def retranslateUi(self, nexyuMain):
         nexyuMain.setWindowTitle(_translate("nexyuMain", "Nex yu", None))
 
-from imagebutton import imageButton
-from contactInfo import ContactInfo
-from contactsboxlist import ContactsBoxList
-from toolbar import Toolbar
 import mainWindow_rc

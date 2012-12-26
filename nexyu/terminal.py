@@ -5,7 +5,7 @@ import chardet
 from twisted.protocols import basic
 
 
-class IOTerminal(basic.LineOnlyReceiver):
+class TerminalInterface(basic.LineOnlyReceiver):
     from os import linesep as delimiter  # @UnusedImport
 
     def __init__(self):

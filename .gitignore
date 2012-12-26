@@ -32,13 +32,16 @@ nosetests.xml
 # Mr Developer
 .mr.developer.cfg
 
+#Rope
+.ropeproject
+
 # Eclipse
 .project
 .pydevproject
 .settings
 
 # Project specific
-res/ssl/*
+nexyu/res/ssl/*
 
 # Vim
 *.swp

@@ -2,10 +2,8 @@
 
 from twisted.internet import protocol, ssl
 from twisted.protocols import basic
-from twisted.internet import stdio
 import json
 import socket
-import terminal
 import sslHelper
 from twisted.internet.error import CannotListenError
 import os.path
@@ -22,7 +20,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         try:
             networkMessage = json.loads(line)
         except:
-                self.factory.io.write("Wrong JSON")
+                self.factory.interface.write("Wrong JSON")
         else:
             if networkMessage["type"] == "ready":
                 self.sendString(json.dumps({"type": "askContacts",
@@ -31,23 +29,23 @@ class NexYuServProtocol(basic.Int32StringReceiver):
 
             elif networkMessage["type"] == "message":
                 message = networkMessage["data"]
-                self.factory.io.displaySMS(message)
+                self.factory.interface.displaySMS(message)
                 send["type"] = "ok"
             elif networkMessage["type"] == "SMSSent":
                 smsSent = networkMessage["data"]
                 if smsSent["result"] == 0:
-                    self.factory.io.write("{} is a success".format(
+                    self.factory.interface.write("{} is a success".format(
                                                     smsSent["id"]), False)
                     send["type"] = "ok"
                 else:
-                    self.factory.io.write("{} has failed".format(
+                    self.factory.interface.write("{} has failed".format(
                                                     smsSent["id"]), False)
             elif networkMessage["type"] == "ContactsList":
                 self.contactsList = networkMessage["data"]
                 send["type"] = "ok"
-                self.factory.io.write("Contact list received", False)
+                self.factory.interface.write("Contact list received", False)
             else:
-                self.factory.io.write("unknown message:" + line, False)
+                self.factory.interface.write("unknown message:" + line, False)
                 self.sendString(json.dumps(send))
 
             if disconnect:
@@ -63,41 +61,39 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             self.factory.smsId += 1
             self.sendString(json.dumps({"type": "messageToCell", "data": sms}))
         else:
-            self.factory.io.write("Invalid recipient")
+            self.factory.interface.write("Invalid recipient")
 
     def connectionMade(self):
-        self.factory.io.server = self
+        self.factory.interface.server = self
         self.factory.connections += 1
-        self.factory.io.write("Connected", False)
+        self.factory.interface.write("Connected", False)
         if(self.factory.connections != 1):
             self.disconnect()
         else:
             self.sendString(json.dumps({"type": "ok", "data": None}))
 
     def connectionLost(self, reason):
-        self.factory.io.write("Disconnected")
+        self.factory.interface.write("Disconnected")
         reason.printTraceback()
         self.factory.connections -= 1
         if self.factory.connections < 1:
-            self.factory.io.server = None
+            self.factory.interface.server = None
 
 
 class NexYuServFactory(protocol.ServerFactory):
     protocol = NexYuServProtocol
 
-    def __init__(self, io):
-        self.io = io
+    def __init__(self, interface):
+        self.interface = interface
         self.smsId = 1
         self.connections = 0
 
 
 class Server:
-    def __init__(self, _reactor):
+    def __init__(self, _reactor, interface):
         self.reactor = _reactor
         self.port = 34340
-        io = terminal.IOTerminal()
-        self.nexServer = NexYuServFactory(io)
-        stdio.StandardIO(io)
+        self.nexServer = NexYuServFactory(interface)
         path = os.path.join("res", "ssl")
         certificateFileName, privateKeyFileName = \
             sslHelper.get_self_signed_cert(path)

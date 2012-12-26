@@ -3,7 +3,9 @@
 
 import sys
 import Server
-import LoginWindow
+from twisted.internet import stdio
+import terminal
+import gui
 from PyQt4 import QtGui
 
 
@@ -14,10 +16,13 @@ def main():
     qt4reactor.install()
     from twisted.internet import reactor
 
-    server = Server.Server(reactor)
-    loginWindow = LoginWindow.LoginWindow()
-    loginWindow.setQrCode(server.genUri())
-    loginWindow.show()
+    if len(sys.argv) > 1 and sys.argv[1] == "-t":
+            interface = terminal.TerminalInterface()
+            stdio.StandardIO(interface)
+    else:
+            interface = gui.GuiInterface()
+    server = Server.Server(reactor, interface)
+    interface.start(server)
     reactor.runReturn()
     app.exec_()
     reactor.stop()

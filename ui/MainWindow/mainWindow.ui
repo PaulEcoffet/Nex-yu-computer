@@ -99,7 +99,7 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <widget class="ContactsBoxList" name="contactsBoxList">
+        <widget class="QWidget" name="contactsBoxList">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -142,7 +142,7 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="Toolbar" name="contactsToolbar">
+    <widget class="QFrame" name="contactsToolbar">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -198,7 +198,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="imageButton" name="newMessageButton">
+       <widget class="QPushButton" name="newMessageButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
           <horstretch>0</horstretch>
@@ -224,7 +224,7 @@
        </widget>
       </item>
       <item>
-       <widget class="imageButton" name="searchButton">
+       <widget class="QPushButton" name="searchButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
           <horstretch>0</horstretch>
@@ -550,7 +550,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="Toolbar" name="conversationToolbar">
+    <widget class="QFrame" name="conversationToolbar">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -586,7 +586,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="ContactInfo" name="contactsInfo">
+       <widget class="QFrame" name="contactInfo">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -650,7 +650,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="imageButton" name="optionButton">
+          <widget class="QPushButton" name="optionButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -701,7 +701,7 @@
           </widget>
          </item>
          <item>
-          <widget class="imageButton" name="disconnectButton">
+          <widget class="QPushButton" name="disconnectButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -763,31 +763,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ContactsBoxList</class>
-   <extends>QWidget</extends>
-   <header>contactsboxlist</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>imageButton</class>
-   <extends>QPushButton</extends>
-   <header>imagebutton</header>
-  </customwidget>
-  <customwidget>
-   <class>Toolbar</class>
-   <extends>QFrame</extends>
-   <header>toolbar</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ContactInfo</class>
-   <extends>QFrame</extends>
-   <header>contactInfo</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="mainWindow.qrc"/>
  </resources>
