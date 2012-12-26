@@ -20,7 +20,7 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         try:
             networkMessage = json.loads(line)
         except:
-                self.factory.interface.write("Wrong JSON")
+            print "Wrong JSON:", line
         else:
             if networkMessage["type"] == "ready":
                 self.sendString(json.dumps({"type": "askContacts",
@@ -34,25 +34,24 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             elif networkMessage["type"] == "SMSSent":
                 smsSent = networkMessage["data"]
                 if smsSent["result"] == 0:
-                    self.factory.interface.write("{} is a success".format(
-                                                    smsSent["id"]), False)
+                    self.factory.interface.smsSuccess(smsSent["id"])
                     send["type"] = "ok"
                 else:
-                    self.factory.interface.write("{} has failed".format(
-                                                    smsSent["id"]), False)
+                    self.factory.interface.smsFailed(smsSent["id"])
             elif networkMessage["type"] == "ContactsList":
                 self.contactsList = networkMessage["data"]
                 send["type"] = "ok"
-                self.factory.interface.write("Contact list received", False)
+                self.factory.interface.setContactList(self.contactsList)
             else:
-                self.factory.interface.write("unknown message:" + line, False)
-                self.sendString(json.dumps(send))
+                print("unknown message:" + line, )
+            self.sendString(json.dumps(send))
 
             if disconnect:
                 self.disconnect()
 
     def disconnect(self):
         self.transport.loseConnection()
+        self.factory.interface.disconnected()
 
     def sendSMS(self, number, body):
         if number:
@@ -61,19 +60,19 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             self.factory.smsId += 1
             self.sendString(json.dumps({"type": "messageToCell", "data": sms}))
         else:
-            self.factory.interface.write("Invalid recipient")
+            self.factory.interface.invalidRecipientError()
 
     def connectionMade(self):
         self.factory.interface.server = self
         self.factory.connections += 1
-        self.factory.interface.write("Connected", False)
+        self.factory.interface.connectionSuccess()
         if(self.factory.connections != 1):
             self.disconnect()
         else:
             self.sendString(json.dumps({"type": "ok", "data": None}))
 
     def connectionLost(self, reason):
-        self.factory.interface.write("Disconnected")
+        self.factory.interface.connectionLost()
         reason.printTraceback()
         self.factory.connections -= 1
         if self.factory.connections < 1:
@@ -101,7 +100,7 @@ class Server:
         while not success:
             try:
                 ctxfactory = ssl.DefaultOpenSSLContextFactory(
-                                    privateKeyFileName, certificateFileName)
+                    privateKeyFileName, certificateFileName)
                 self.reactor.listenSSL(self.port, self.nexServer, ctxfactory)
             except CannotListenError:
                 self.port += 1
@@ -114,4 +113,4 @@ class Server:
         ip = socket.gethostbyname(socket.gethostname())
         return "nexyu://" + ip + ":" + str(self.port) +\
             "?f=" + sslHelper.get_cert_fingerprint(os.path.join(
-                        "res", "ssl/nexyu.crt"))
+                "res", "ssl/nexyu.crt"))
