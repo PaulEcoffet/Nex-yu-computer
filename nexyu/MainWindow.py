@@ -2,6 +2,7 @@
 
 from PyQt4 import QtGui
 import ui.MainWindow.mainWindow as mw
+import convBox
 
 
 class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
@@ -10,9 +11,9 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
         super(MainWindow, self).__init__(parent)
         self.interface = interface
         self.setupUi(self)
-        self.convBoxes = None
+        self.convBoxes = []
 
-    def fillConversationsList(conversationsList):
+    def fillConversationsList(self, conversationsList):
         """
         Fill the conversations list with the items in the conversationsList
         variable.
@@ -21,6 +22,6 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
         """
         self.clearConvList()
         for conversation in conversationsList:
-                self.convBoxes.append(convbox)
-                self.drawConvBoxes()
-
+            convbox = convBox.convBox(conversation)
+            self.convBoxes.append(convbox)
+            self.drawConvBoxes()
