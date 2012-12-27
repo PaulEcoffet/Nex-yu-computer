@@ -1,6 +1,8 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
-
+"""
+Main file of nexyu.
+"""
 import sys
 import Server
 from twisted.internet import stdio
@@ -17,10 +19,10 @@ def main():
     from twisted.internet import reactor
 
     if len(sys.argv) > 1 and sys.argv[1] == "-t":
-            interface = terminal.TerminalInterface()
-            stdio.StandardIO(interface)
+        interface = terminal.TerminalInterface()
+        stdio.StandardIO(interface)
     else:
-            interface = gui.GuiInterface()
+        interface = gui.GuiInterface()
     server = Server.Server(reactor, interface)
     interface.start(server)
     reactor.runReturn()

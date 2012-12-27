@@ -14,8 +14,9 @@ class GuiInterface():
         self.contactsList = None
         self.conversationsList = None
         self.server = None
+        self.conversation = None
 
-    def start(self):
+    def start(self, server):
         """
         Function that must be called to start this interface
 
@@ -29,10 +30,12 @@ class GuiInterface():
         """
         Callback triggered when the connection is successfull, display the main window
         """
-
         self.login.deleteLater()
         self.main = MainWindow.MainWindow(self)
-        self.main.fillMessageList(server.getMessageList())
+        self.main.show()
+        self.conversationsList = self.server.getConversationsList()
+        self.contactsList = self.server.getContactsList()
+        self.main.fillconversationList(self.conversationsList)
 
     def setConversation(self, conversationId):
         """
@@ -51,4 +54,4 @@ class GuiInterface():
         server.sendSMS(conversation.number, message)
 
     def disconnected(self):
-        pass
+        self.main.deleteLater()
