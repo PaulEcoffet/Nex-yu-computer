@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow/contactInfo.ui'
+# Form implementation generated from reading ui file 'MainWindow/conversationInfo.ui'
 #
-# Created: Wed Dec 26 19:57:40 2012
+# Created: Thu Dec 27 12:33:14 2012
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,16 +23,16 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(439, 46)
-        Form.setMaximumSize(QtCore.QSize(16777215, 46))
-        self.verticalLayout = QtGui.QVBoxLayout(Form)
+class Ui_conversationInfo(object):
+    def setupUi(self, conversationInfo):
+        conversationInfo.setObjectName(_fromUtf8("conversationInfo"))
+        conversationInfo.resize(439, 46)
+        conversationInfo.setMaximumSize(QtCore.QSize(16777215, 46))
+        self.verticalLayout = QtGui.QVBoxLayout(conversationInfo)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.icon = QtGui.QLabel(Form)
+        self.icon = QtGui.QLabel(conversationInfo)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -48,7 +48,7 @@ class Ui_Form(object):
 "}"))
         self.icon.setObjectName(_fromUtf8("icon"))
         self.horizontalLayout.addWidget(self.icon)
-        self.name = QtGui.QLabel(Form)
+        self.name = QtGui.QLabel(conversationInfo)
         self.name.setStyleSheet(_fromUtf8("#name\n"
 "{\n"
 "    font-size: 18px;\n"
@@ -57,7 +57,7 @@ class Ui_Form(object):
         self.name.setTextFormat(QtCore.Qt.PlainText)
         self.name.setObjectName(_fromUtf8("name"))
         self.horizontalLayout.addWidget(self.name)
-        self.phoneNumber = QtGui.QLabel(Form)
+        self.phoneNumber = QtGui.QLabel(conversationInfo)
         self.phoneNumber.setStyleSheet(_fromUtf8("#phoneNumber\n"
 "{\n"
 "    color: #4d4d4d;\n"
@@ -71,12 +71,12 @@ class Ui_Form(object):
         self.horizontalLayout.addItem(spacerItem)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(conversationInfo)
+        QtCore.QMetaObject.connectSlotsByName(conversationInfo)
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(_translate("Form", "Form", None))
-        self.name.setText(_translate("Form", "First Last", None))
-        self.phoneNumber.setText(_translate("Form", "(+3368989781)", None))
+    def retranslateUi(self, conversationInfo):
+        conversationInfo.setWindowTitle(_translate("conversationInfo", "Form", None))
+        self.name.setText(_translate("conversationInfo", "First Last", None))
+        self.phoneNumber.setText(_translate("conversationInfo", "(+3368989781)", None))
 
 import mainWindow_rc

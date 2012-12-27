@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Paul Ecoffet</author>
- <class>contactBox</class>
- <widget class="QWidget" name="contactBox">
+ <class>conversationBox</class>
+ <widget class="QWidget" name="conversationBox">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
+    <width>231</width>
     <height>80</height>
    </rect>
   </property>

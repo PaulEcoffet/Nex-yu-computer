@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+rm -rf ../nexyu/ui/**
+
 for uifile in **/*.ui
 do
 	filename=`basename -s .ui ${uifile}`".py"
@@ -22,7 +24,7 @@ do
 	folder="../nexyu/ui/"`dirname ${rcfile}`
 	if [ ! -d $folder ]
 	then
-		mkdir -p $folder 
+		mkdir -p $folder
 	fi
 	if [ ! -f $folder/__init__.py ]
 	then
