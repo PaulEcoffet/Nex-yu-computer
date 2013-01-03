@@ -33,9 +33,25 @@ class GuiInterface():
         self.login.deleteLater()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
-        self.conversationsList = self.server.getConversationsList()
-        self.contactsList = self.server.getContactsList()
-        self.main.fillconversationList(self.conversationsList)
+        self.server.askContactsList()
+        #self.server.askConversationsList()
+
+    def onContactsListReceived(self, contactsList):
+        """
+        callback triggered when the contactsList is received by the server.
+
+        contactsList -- The contacts list
+        """
+        self.contactsList = contactsList
+
+    def onConversationsListReceived(self, conversationsList):
+        """
+        callback triggered when the conversationsList is received by the server.
+
+        contactsList -- The contacts list
+        """
+        self.conversationsList = conversationsList
+        self.main.fillConversationsList(self.conversationsList)
 
     def setConversation(self, conversationId):
         """
@@ -51,7 +67,7 @@ class GuiInterface():
 
         message -- The message to send
         """
-        server.sendSMS(conversation.number, message)
+        self.server.sendSMS(self.conversation["address"], message)
 
     def disconnected(self):
         self.main.deleteLater()

@@ -12,7 +12,7 @@ import os.path
 class NexYuServProtocol(basic.Int32StringReceiver):
 
     def __init__(self):
-        self.contactsList = None
+        pass
 
     def stringReceived(self, line):
         send = {"type": "error", "data": None}
@@ -23,10 +23,8 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             print "Wrong JSON:", line
         else:
             if networkMessage["type"] == "ready":
-                self.sendString(json.dumps({"type": "askContacts",
-                                "data": None}))
                 self.transport.setTcpKeepAlive(1)
-
+                send["type"] = "ok"
             elif networkMessage["type"] == "message":
                 message = networkMessage["data"]
                 self.factory.interface.displaySMS(message)
@@ -39,11 +37,15 @@ class NexYuServProtocol(basic.Int32StringReceiver):
                 else:
                     self.factory.interface.smsFailed(smsSent["id"])
             elif networkMessage["type"] == "ContactsList":
-                self.contactsList = networkMessage["data"]
+                self.factory.interface.onContactsListReceived(
+                    networkMessage["data"])
                 send["type"] = "ok"
-                self.factory.interface.setContactList(self.contactsList)
+            elif networkMessage["type"] == "ConversationsList":
+                self.factory.interface.onConversationsListReceived(
+                    networkMessage["data"])
+                send["type"] = "ok"
             else:
-                print("unknown message:" + line, )
+                print("unknown message:", line)
             self.sendString(json.dumps(send))
 
             if disconnect:
@@ -61,6 +63,18 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             self.sendString(json.dumps({"type": "messageToCell", "data": sms}))
         else:
             self.factory.interface.invalidRecipientError()
+
+    def askContactsList(self):
+        """
+        Ask the client to send its contacts list
+        """
+        self.sendString(json.dumps({"type": "askContactsList", "data": None}))
+
+    def askConversationsList(self):
+        """
+        Ask the client to send its contacts list
+        """
+        self.sendString(json.dumps({"type": "askConversationsList", "data": None}))
 
     def connectionMade(self):
         self.factory.interface.server = self
