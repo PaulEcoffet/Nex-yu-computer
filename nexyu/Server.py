@@ -5,6 +5,7 @@ from twisted.protocols import basic
 import json
 import socket
 import sslHelper
+from utils.collectionGatherer import CollectionGatherer
 from twisted.internet.error import CannotListenError
 import os.path
 
@@ -12,10 +13,9 @@ import os.path
 class NexYuServProtocol(basic.Int32StringReceiver):
 
     def __init__(self):
-        pass
+        self.collectionGatherer = CollectionGatherer(self)
 
     def stringReceived(self, line):
-        send = {"type": "error", "data": None}
         disconnect = False
         try:
             networkMessage = json.loads(line)
@@ -24,32 +24,45 @@ class NexYuServProtocol(basic.Int32StringReceiver):
         else:
             if networkMessage["type"] == "ready":
                 self.transport.setTcpKeepAlive(1)
-                send["type"] = "ok"
             elif networkMessage["type"] == "message":
                 message = networkMessage["data"]
                 self.factory.interface.displaySMS(message)
-                send["type"] = "ok"
             elif networkMessage["type"] == "SMSSent":
-                smsSent = networkMessage["data"]
-                if smsSent["result"] == 0:
-                    self.factory.interface.smsSuccess(smsSent["id"])
-                    send["type"] = "ok"
-                else:
-                    self.factory.interface.smsFailed(smsSent["id"])
-            elif networkMessage["type"] == "ContactsList":
-                self.factory.interface.onContactsListReceived(
-                    networkMessage["data"])
-                send["type"] = "ok"
-            elif networkMessage["type"] == "ConversationsList":
-                self.factory.interface.onConversationsListReceived(
-                    networkMessage["data"])
-                send["type"] = "ok"
+                self.onSMSSent(networkMessage)
+            elif networkMessage["type"] == "contact":
+                self.manageContactReceived(networkMessage)
+            elif networkMessage["type"] == "conversation":
+                self.manageConversationReceived(networkMessage)
+            elif networkMessage["type"] == "collectionInformation":
+                self.manageCollectionInformation(networkMessage)
             else:
                 print("unknown message:", line)
-            self.sendString(json.dumps(send))
-
             if disconnect:
                 self.disconnect()
+
+    def onSMSSent(self, networkMessage):
+        smsSent = networkMessage["data"]
+        if smsSent["result"] == 0:
+            self.factory.interface.smsSuccess(smsSent["id"])
+        else:
+            self.factory.interface.smsFailed(smsSent["id"])
+
+    def manageContactReceived(self, networkMessage):
+        if networkMessage["collection_id"] is not None:
+            id = networkMessage["collection_id"]
+            self.collectionGatherer.addToCollection(id, networkMessage)
+
+    def manageConversationReceived(self, networkMessage):
+        if networkMessage["collection_id"] is not None:
+            id = networkMessage["collection_id"]
+            self.collectionGatherer.addToCollection(id, networkMessage)
+
+    def manageCollectionInformation(self, nm):
+        self.collectionGatherer.setCollectionSize(nm["collection_id"],
+                                                nm["data"]["size"])
+
+    def onCollectionComplete(self, data):
+        print data
 
     def disconnect(self):
         self.transport.loseConnection()

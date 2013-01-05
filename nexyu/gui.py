@@ -34,7 +34,7 @@ class GuiInterface():
         self.main = MainWindow.MainWindow(self)
         self.main.show()
         self.server.askContactsList()
-        #self.server.askConversationsList()
+        self.server.askConversationsList()
 
     def onContactsListReceived(self, contactsList):
         """

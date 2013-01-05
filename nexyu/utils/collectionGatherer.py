@@ -1,11 +1,11 @@
-class collectionGatherer:
+class CollectionGatherer:
 
-    def __init__(self,  interface):
-        self.interface = interface
+    def __init__(self,  callback):
+        self.callback = callback
         self.data = {}
 
     def addToCollection(self, id, data):
-        if not self.data[id]:
+        if id not in self.data:
             self.data[id] = {"data": [data], "size": -1}
         else:
             self.data[id]["data"].append(data)
@@ -14,7 +14,7 @@ class collectionGatherer:
             self._collectionComplete(id)
 
     def setCollectionSize(self, id, size):
-        if not self.data[id]:
+        if id not in self.data:
             self.data[id] = {"data": [], "size": size}
         else:
             self.data[id]["size"] = size
@@ -22,5 +22,5 @@ class collectionGatherer:
             self._collectionComplete(id)
 
     def _collectionComplete(self, id):
-        self.interface.onCollectionComplete(self.data[id]["data"])
+        self.callback.onCollectionComplete(self.data[id]["data"])
         del self.data[id]
