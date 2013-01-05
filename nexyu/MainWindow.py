@@ -20,7 +20,7 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
 
         conversationsList -- The list of the conversations.
         """
-        self.clearConvList()
+#        self.clearConvList()
         for conversation in conversationsList:
             print conversation["address"]
             print conversation["snippet"]

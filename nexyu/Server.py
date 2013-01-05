@@ -5,7 +5,6 @@ from twisted.protocols import basic
 import json
 import socket
 import sslHelper
-from utils.collectionGatherer import CollectionGatherer
 from twisted.internet.error import CannotListenError
 import os.path
 
@@ -13,7 +12,7 @@ import os.path
 class NexYuServProtocol(basic.Int32StringReceiver):
 
     def __init__(self):
-        self.collectionGatherer = CollectionGatherer(self)
+        pass
 
     def stringReceived(self, line):
         disconnect = False
@@ -33,8 +32,6 @@ class NexYuServProtocol(basic.Int32StringReceiver):
                 self.manageContactReceived(networkMessage)
             elif networkMessage["type"] == "conversation":
                 self.manageConversationReceived(networkMessage)
-            elif networkMessage["type"] == "collectionInformation":
-                self.manageCollectionInformation(networkMessage)
             else:
                 print("unknown message:", line)
             if disconnect:
@@ -48,21 +45,15 @@ class NexYuServProtocol(basic.Int32StringReceiver):
             self.factory.interface.smsFailed(smsSent["id"])
 
     def manageContactReceived(self, networkMessage):
-        if networkMessage["collection_id"] is not None:
-            id = networkMessage["collection_id"]
-            self.collectionGatherer.addToCollection(id, networkMessage)
+        if networkMessage["type"] != "contact":
+            raise Exception("Expecting a contact")
+        self.factory.interface.onContactReceived(networkMessage["data"])
 
     def manageConversationReceived(self, networkMessage):
-        if networkMessage["collection_id"] is not None:
-            id = networkMessage["collection_id"]
-            self.collectionGatherer.addToCollection(id, networkMessage)
+        if networkMessage["type"] != "conversation":
+            raise Exception("Expecting a conversation")
 
-    def manageCollectionInformation(self, nm):
-        self.collectionGatherer.setCollectionSize(nm["collection_id"],
-                                                nm["data"]["size"])
-
-    def onCollectionComplete(self, data):
-        print data
+        self.factory.interface.onConversationReceived(networkMessage["data"])
 
     def disconnect(self):
         self.transport.loseConnection()

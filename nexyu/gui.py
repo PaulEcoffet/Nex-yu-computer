@@ -11,8 +11,8 @@ class GuiInterface():
         """
         self.login = LoginWindow.LoginWindow()
         self.main = None
-        self.contactsList = None
-        self.conversationsList = None
+        self.contacts = {}
+        self.conversations = {}
         self.server = None
         self.conversation = None
 
@@ -33,25 +33,25 @@ class GuiInterface():
         self.login.deleteLater()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
-        self.server.askContactsList()
         self.server.askConversationsList()
+        self.server.askContactsList()
 
-    def onContactsListReceived(self, contactsList):
+    def onContactReceived(self, contact):
         """
-        callback triggered when the contactsList is received by the server.
+        callback triggered when a contact is received by the server.
 
-        contactsList -- The contacts list
+        contact -- The contact received
         """
-        self.contactsList = contactsList
+        self.contacts[contact["id"]] = contact
 
-    def onConversationsListReceived(self, conversationsList):
+    def onConversationReceived(self, conversation):
         """
-        callback triggered when the conversationsList is received by the server.
+        callback triggered when a conversation is received by the server.
 
-        contactsList -- The contacts list
+        conversation -- The conversation received
         """
-        self.conversationsList = conversationsList
-        self.main.fillConversationsList(self.conversationsList)
+        self.conversations[conversation["thread_id"]] = conversation
+        self.main.fillConversationsList(self.conversations.values())
 
     def setConversation(self, conversationId):
         """
@@ -59,7 +59,7 @@ class GuiInterface():
 
         contactId -- The id of the contact to set as active
         """
-        self.conversation = self.conversationsList[conversationId]
+        self.conversation = self.conversations[conversationId]
 
     def sendMessage(self, message):
         """
