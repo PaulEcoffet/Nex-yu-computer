@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/mainWindow.ui'
 #
-# Created: Thu Dec 27 12:33:14 2012
+# Created: Sun Jan  6 15:18:24 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,13 +35,13 @@ class Ui_nexyuMain(object):
 "    margin: 0px;\n"
 "    padding: 0px;\n"
 "}\n"
-"#contactsToolbar, #conversationToolbar\n"
+"#conversationsToolbar, #conversationToolbar\n"
 "{\n"
 "    border-bottom: 1px solid #808080;\n"
 "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:1 rgba(232, 234, 255, 255), stop:0 rgba(243, 244, 255, 255));\n"
 "}\n"
 "\n"
-"#contactsToolbar\n"
+"#conversationsToolbar\n"
 "{\n"
 "    border-right: 1px solid #808080\n"
 "}"))
@@ -49,73 +49,73 @@ class Ui_nexyuMain(object):
         self.gridLayout.setMargin(0)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.contactsBoxListContainer = QtGui.QFrame(nexyuMain)
+        self.conversationBoxesListContainer = QtGui.QFrame(nexyuMain)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.contactsBoxListContainer.sizePolicy().hasHeightForWidth())
-        self.contactsBoxListContainer.setSizePolicy(sizePolicy)
-        self.contactsBoxListContainer.setMinimumSize(QtCore.QSize(200, 0))
-        self.contactsBoxListContainer.setMaximumSize(QtCore.QSize(250, 16777215))
-        self.contactsBoxListContainer.setStyleSheet(_fromUtf8("#contactsBoxListContainer\n"
+        sizePolicy.setHeightForWidth(self.conversationBoxesListContainer.sizePolicy().hasHeightForWidth())
+        self.conversationBoxesListContainer.setSizePolicy(sizePolicy)
+        self.conversationBoxesListContainer.setMinimumSize(QtCore.QSize(200, 0))
+        self.conversationBoxesListContainer.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.conversationBoxesListContainer.setStyleSheet(_fromUtf8("#conversationBoxesListContainer\n"
 "{\n"
 "    background-color: white;\n"
 "    border-right: 1px solid #808080\n"
 "}"))
-        self.contactsBoxListContainer.setFrameShape(QtGui.QFrame.NoFrame)
-        self.contactsBoxListContainer.setFrameShadow(QtGui.QFrame.Plain)
-        self.contactsBoxListContainer.setLineWidth(0)
-        self.contactsBoxListContainer.setObjectName(_fromUtf8("contactsBoxListContainer"))
-        self.horizontalLayout_4 = QtGui.QHBoxLayout(self.contactsBoxListContainer)
+        self.conversationBoxesListContainer.setFrameShape(QtGui.QFrame.NoFrame)
+        self.conversationBoxesListContainer.setFrameShadow(QtGui.QFrame.Plain)
+        self.conversationBoxesListContainer.setLineWidth(0)
+        self.conversationBoxesListContainer.setObjectName(_fromUtf8("conversationBoxesListContainer"))
+        self.horizontalLayout_4 = QtGui.QHBoxLayout(self.conversationBoxesListContainer)
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setMargin(0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
-        self.scrollArea = QtGui.QScrollArea(self.contactsBoxListContainer)
+        self.scrollArea = QtGui.QScrollArea(self.conversationBoxesListContainer)
         self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
         self.scrollArea.setFrameShadow(QtGui.QFrame.Plain)
         self.scrollArea.setLineWidth(0)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
-        self.contactsBoxList = QtGui.QWidget()
-        self.contactsBoxList.setGeometry(QtCore.QRect(0, 0, 199, 515))
-        self.contactsBoxList.setStyleSheet(_fromUtf8("#contactsBoxList\n"
+        self.conversationBoxesList = QtGui.QWidget()
+        self.conversationBoxesList.setGeometry(QtCore.QRect(0, 0, 199, 515))
+        self.conversationBoxesList.setStyleSheet(_fromUtf8("#conversationBoxesList\n"
 "{\n"
 "    background-color:white;\n"
 "}"))
-        self.contactsBoxList.setObjectName(_fromUtf8("contactsBoxList"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.contactsBoxList)
+        self.conversationBoxesList.setObjectName(_fromUtf8("conversationBoxesList"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.conversationBoxesList)
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
-        self.scrollArea.setWidget(self.contactsBoxList)
+        self.scrollArea.setWidget(self.conversationBoxesList)
         self.horizontalLayout_4.addWidget(self.scrollArea)
-        self.gridLayout.addWidget(self.contactsBoxListContainer, 1, 0, 1, 1)
-        self.contactsToolbar = QtGui.QFrame(nexyuMain)
+        self.gridLayout.addWidget(self.conversationBoxesListContainer, 1, 0, 1, 1)
+        self.conversationsToolbar = QtGui.QFrame(nexyuMain)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.contactsToolbar.sizePolicy().hasHeightForWidth())
-        self.contactsToolbar.setSizePolicy(sizePolicy)
-        self.contactsToolbar.setMinimumSize(QtCore.QSize(200, 46))
-        self.contactsToolbar.setMaximumSize(QtCore.QSize(250, 16777215))
-        self.contactsToolbar.setStyleSheet(_fromUtf8("#newMessageButton, #searchButton\n"
+        sizePolicy.setHeightForWidth(self.conversationsToolbar.sizePolicy().hasHeightForWidth())
+        self.conversationsToolbar.setSizePolicy(sizePolicy)
+        self.conversationsToolbar.setMinimumSize(QtCore.QSize(200, 46))
+        self.conversationsToolbar.setMaximumSize(QtCore.QSize(250, 16777215))
+        self.conversationsToolbar.setStyleSheet(_fromUtf8("#newMessageButton, #searchButton\n"
 "{\n"
 "    border: none;\n"
 "}\n"
 ""))
-        self.contactsToolbar.setFrameShape(QtGui.QFrame.NoFrame)
-        self.contactsToolbar.setFrameShadow(QtGui.QFrame.Plain)
-        self.contactsToolbar.setLineWidth(0)
-        self.contactsToolbar.setObjectName(_fromUtf8("contactsToolbar"))
-        self.horizontalLayout = QtGui.QHBoxLayout(self.contactsToolbar)
+        self.conversationsToolbar.setFrameShape(QtGui.QFrame.NoFrame)
+        self.conversationsToolbar.setFrameShadow(QtGui.QFrame.Plain)
+        self.conversationsToolbar.setLineWidth(0)
+        self.conversationsToolbar.setObjectName(_fromUtf8("conversationsToolbar"))
+        self.horizontalLayout = QtGui.QHBoxLayout(self.conversationsToolbar)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.newMessageButton = QtGui.QPushButton(self.contactsToolbar)
+        self.newMessageButton = QtGui.QPushButton(self.conversationsToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -128,7 +128,7 @@ class Ui_nexyuMain(object):
         self.newMessageButton.setIconSize(QtCore.QSize(55, 38))
         self.newMessageButton.setObjectName(_fromUtf8("newMessageButton"))
         self.horizontalLayout.addWidget(self.newMessageButton)
-        self.searchButton = QtGui.QPushButton(self.contactsToolbar)
+        self.searchButton = QtGui.QPushButton(self.conversationsToolbar)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -144,7 +144,7 @@ class Ui_nexyuMain(object):
         self.horizontalLayout.addWidget(self.searchButton)
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
-        self.gridLayout.addWidget(self.contactsToolbar, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.conversationsToolbar, 0, 0, 1, 1)
         self.conversationContentContainer = QtGui.QFrame(nexyuMain)
         self.conversationContentContainer.setStyleSheet(_fromUtf8("#conversationContentContainer\n"
 "{\n"
@@ -216,7 +216,12 @@ class Ui_nexyuMain(object):
         self.messageEditGrid.addLayout(self.horizontalLayout_5, 2, 0, 1, 1)
         self.messageEdit = QtGui.QPlainTextEdit(self.conversationContentContainer)
         self.messageEdit.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.messageEdit.setStyleSheet(_fromUtf8(""))
+        self.messageEdit.setStyleSheet(_fromUtf8("#messageEdit\n"
+"{\n"
+"    border: none;\n"
+"    background-color: white;\n"
+"    color: black;\n"
+"}"))
         self.messageEdit.setFrameShape(QtGui.QFrame.NoFrame)
         self.messageEdit.setFrameShadow(QtGui.QFrame.Plain)
         self.messageEdit.setObjectName(_fromUtf8("messageEdit"))

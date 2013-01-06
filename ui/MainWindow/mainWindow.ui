@@ -24,13 +24,13 @@
 	margin: 0px;
 	padding: 0px;
 }
-#contactsToolbar, #conversationToolbar
+#conversationsToolbar, #conversationToolbar
 {
 	border-bottom: 1px solid #808080;
 	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:1 rgba(232, 234, 255, 255), stop:0 rgba(243, 244, 255, 255));
 }
 
-#contactsToolbar
+#conversationsToolbar
 {
 	border-right: 1px solid #808080
 }</string>
@@ -43,7 +43,7 @@
     <number>0</number>
    </property>
    <item row="1" column="0">
-    <widget class="QFrame" name="contactsBoxListContainer">
+    <widget class="QFrame" name="conversationBoxesListContainer">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -63,7 +63,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">#contactsBoxListContainer
+      <string notr="true">#conversationBoxesListContainer
 {
 	background-color: white;
 	border-right: 1px solid #808080
@@ -99,7 +99,7 @@
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <widget class="QWidget" name="contactsBoxList">
+        <widget class="QWidget" name="conversationBoxesList">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -109,7 +109,7 @@
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">#contactsBoxList
+          <string notr="true">#conversationBoxesList
 {
 	background-color:white;
 }</string>
@@ -142,7 +142,7 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QFrame" name="contactsToolbar">
+    <widget class="QFrame" name="conversationsToolbar">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -422,7 +422,12 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true">#messageEdit
+{
+	border: none;
+	background-color: white;
+	color: black;
+}</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>

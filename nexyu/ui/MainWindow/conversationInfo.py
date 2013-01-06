@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/conversationInfo.ui'
 #
-# Created: Thu Dec 27 12:33:14 2012
+# Created: Sun Jan  6 15:18:24 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
