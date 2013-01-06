@@ -8,13 +8,9 @@ do
 	folder="../nexyu/ui/"`dirname ${uifile}`
 	if [ ! -d $folder ]
 	then
-		mkdir -p $folder 
+		mkdir -p $folder
 	fi
-	if [ ! -f $folder/__init__.py ]
-	then
-		touch $folder/__init__.py
-	fi
-	echo "converting ${uifile} in ${folder}/${filename}"
+		echo "converting ${uifile} in ${folder}/${filename}"
 	pyuic4 ${uifile} -o ${folder}/${filename}
 done
 
@@ -26,10 +22,9 @@ do
 	then
 		mkdir -p $folder
 	fi
-	if [ ! -f $folder/__init__.py ]
-	then
-		touch $folder/__init__.py
-	fi
 	echo "converting ${rcfile} in ${folder}/${filename}"
 	pyrcc4 ${rcfile} > ${folder}/${filename}
 done
+
+echo "Creation of the missing __init__.py"
+find ../nexyu/ui/ -type d -exec touch {}/__init__.py \;
