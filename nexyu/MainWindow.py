@@ -2,7 +2,7 @@
 
 from PyQt4 import QtGui
 import ui.MainWindow.mainWindow as mw
-#import convBox
+import convBox
 
 
 class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
@@ -20,12 +20,23 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
 
         conversationsList -- The list of the conversations.
         """
-#        self.clearConvList()
+        self.clearConvBoxesList()
+        print self.convBoxes
         for conversation in conversationsList:
-            print conversation["address"]
-            print conversation["snippet"]
-            print conversation["date"]
-            print "--------------------"
-#            convbox = convBox.convBox(conversation)
-#            self.convBoxes.append(convbox)
-#            self.drawConvBoxes()
+            convbox = convBox.ConvBox(conversation)
+            self.convBoxes.append(convbox)
+        self.drawConvBoxes()
+
+    def clearConvBoxesList(self):
+        for convBox in self.convBoxes:
+            self.ConversationBoxesLayout.removeWidget(convBox)
+            convBox.deleteLater()
+        del self.convBoxes[:]
+
+    def drawConvBoxes(self):
+        """
+        Draw the conversation boxes.
+        """
+        print "drawing"
+        for convbox in self.convBoxes:
+            self.ConversationBoxesLayout.addWidget(convbox)
