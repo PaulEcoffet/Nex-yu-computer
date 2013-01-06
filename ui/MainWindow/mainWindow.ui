@@ -114,7 +114,7 @@
 	background-color:white;
 }</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="ConversationBoxesLayout">
           <property name="spacing">
            <number>0</number>
           </property>

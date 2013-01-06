@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/mainWindow.ui'
 #
-# Created: Sun Jan  6 15:18:24 2013
+# Created: Sun Jan  6 16:11:03 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -83,12 +83,12 @@ class Ui_nexyuMain(object):
 "    background-color:white;\n"
 "}"))
         self.conversationBoxesList.setObjectName(_fromUtf8("conversationBoxesList"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.conversationBoxesList)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setMargin(0)
-        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.ConversationBoxesLayout = QtGui.QVBoxLayout(self.conversationBoxesList)
+        self.ConversationBoxesLayout.setSpacing(0)
+        self.ConversationBoxesLayout.setMargin(0)
+        self.ConversationBoxesLayout.setObjectName(_fromUtf8("ConversationBoxesLayout"))
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem)
+        self.ConversationBoxesLayout.addItem(spacerItem)
         self.scrollArea.setWidget(self.conversationBoxesList)
         self.horizontalLayout_4.addWidget(self.scrollArea)
         self.gridLayout.addWidget(self.conversationBoxesListContainer, 1, 0, 1, 1)
