@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/conversationBox.ui'
 #
-# Created: Thu Jan 10 15:41:14 2013
+# Created: Thu Jan 10 21:38:19 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,15 +26,15 @@ except AttributeError:
 class Ui_conversationBox(object):
     def setupUi(self, conversationBox):
         conversationBox.setObjectName(_fromUtf8("conversationBox"))
-        conversationBox.resize(231, 80)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        conversationBox.resize(312, 80)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(conversationBox.sizePolicy().hasHeightForWidth())
         conversationBox.setSizePolicy(sizePolicy)
         conversationBox.setMinimumSize(QtCore.QSize(0, 80))
         conversationBox.setMaximumSize(QtCore.QSize(16777215, 80))
-        conversationBox.setStyleSheet(_fromUtf8("#contactBox\n"
+        conversationBox.setStyleSheet(_fromUtf8("#conversationBox\n"
 "{\n"
 "    background-color: white;\n"
 "    border-bottom: 1px solid #323232;\n"
@@ -61,12 +61,20 @@ class Ui_conversationBox(object):
         self.icon.setObjectName(_fromUtf8("icon"))
         self.horizontalLayout.addWidget(self.icon)
         self.name = QtGui.QLabel(conversationBox)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.name.sizePolicy().hasHeightForWidth())
+        self.name.setSizePolicy(sizePolicy)
+        self.name.setMinimumSize(QtCore.QSize(0, 0))
         self.name.setStyleSheet(_fromUtf8("#name\n"
 "{\n"
 "    font-size: 14px;\n"
 "    font-family: Roboto;\n"
 "}"))
         self.name.setTextFormat(QtCore.Qt.PlainText)
+        self.name.setScaledContents(False)
+        self.name.setWordWrap(False)
         self.name.setObjectName(_fromUtf8("name"))
         self.horizontalLayout.addWidget(self.name)
         self.phoneNumber = QtGui.QLabel(conversationBox)
