@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow/mainWindow.ui'
 #
-# Created: Thu Jan 10 21:38:19 2013
+# Created: Fri Jan 11 13:23:11 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_nexyuMain(object):
     def setupUi(self, nexyuMain):
         nexyuMain.setObjectName(_fromUtf8("nexyuMain"))
-        nexyuMain.resize(740, 561)
+        nexyuMain.resize(640, 604)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/windowDecorators/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         nexyuMain.setWindowIcon(icon)
@@ -115,15 +115,6 @@ class Ui_nexyuMain(object):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.messagesList = QtGui.QListWidget(self.conversationContentContainer)
-        self.messagesList.setStyleSheet(_fromUtf8("#messagesList\n"
-"{\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.03, y2:0, stop:0 rgba(242, 242, 242, 255), stop:1 rgba(255, 255, 255, 255))\n"
-"}"))
-        self.messagesList.setFrameShape(QtGui.QFrame.NoFrame)
-        self.messagesList.setFrameShadow(QtGui.QFrame.Plain)
-        self.messagesList.setObjectName(_fromUtf8("messagesList"))
-        self.verticalLayout.addWidget(self.messagesList)
         self.messageEditGrid = QtGui.QGridLayout()
         self.messageEditGrid.setSpacing(0)
         self.messageEditGrid.setContentsMargins(10, -1, 0, 0)
@@ -222,8 +213,7 @@ class Ui_nexyuMain(object):
         self.messageEditGrid.setColumnStretch(1, 1)
         self.messageEditGrid.setRowStretch(2, 1)
         self.verticalLayout.addLayout(self.messageEditGrid)
-        self.verticalLayout.setStretch(0, 1)
-        self.gridLayout.addWidget(self.conversationContentContainer, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.conversationContentContainer, 2, 1, 1, 1)
         self.conversationToolbar = QtGui.QFrame(nexyuMain)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -315,27 +305,56 @@ class Ui_nexyuMain(object):
         self.horizontalLayout_2.addWidget(self.optionToolbar)
         self.horizontalLayout_2.setStretch(0, 1)
         self.gridLayout.addWidget(self.conversationToolbar, 0, 1, 1, 1)
-        self.conversationBoxesList = QtGui.QListWidget(nexyuMain)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Expanding)
+        self.scrollArea_2 = QtGui.QScrollArea(nexyuMain)
+        self.scrollArea_2.setFrameShape(QtGui.QFrame.NoFrame)
+        self.scrollArea_2.setFrameShadow(QtGui.QFrame.Plain)
+        self.scrollArea_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea_2.setWidgetResizable(True)
+        self.scrollArea_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
+        self.messagesList = QtGui.QWidget()
+        self.messagesList.setGeometry(QtCore.QRect(0, 0, 388, 434))
+        self.messagesList.setStyleSheet(_fromUtf8("#messagesList\n"
+"{\n"
+"    background: qlineargradient(spread:pad, x1:0, y1:0, x2:0.02366038, y2:0, stop:0 rgba(243, 243, 243, 255), stop:1 rgba(255, 255, 255, 255))\n"
+"}"))
+        self.messagesList.setObjectName(_fromUtf8("messagesList"))
+        self.messagesLayout = QtGui.QVBoxLayout(self.messagesList)
+        self.messagesLayout.setSpacing(0)
+        self.messagesLayout.setContentsMargins(0, -1, 0, 0)
+        self.messagesLayout.setObjectName(_fromUtf8("messagesLayout"))
+        self.scrollArea_2.setWidget(self.messagesList)
+        self.gridLayout.addWidget(self.scrollArea_2, 1, 1, 1, 1)
+        self.scrollArea = QtGui.QScrollArea(nexyuMain)
+        self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
+        self.scrollArea.setFrameShadow(QtGui.QFrame.Plain)
+        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
+        self.conversationBoxesList = QtGui.QWidget()
+        self.conversationBoxesList.setGeometry(QtCore.QRect(0, 0, 248, 556))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.conversationBoxesList.sizePolicy().hasHeightForWidth())
         self.conversationBoxesList.setSizePolicy(sizePolicy)
-        self.conversationBoxesList.setAutoFillBackground(False)
+        self.conversationBoxesList.setMinimumSize(QtCore.QSize(0, 0))
+        self.conversationBoxesList.setMaximumSize(QtCore.QSize(350, 16777215))
         self.conversationBoxesList.setStyleSheet(_fromUtf8("#conversationBoxesList\n"
 "{\n"
-"    background-color: #fff;\n"
+"    background-color: white;\n"
 "    border-right: 1px solid #808080;\n"
 "}"))
-        self.conversationBoxesList.setFrameShape(QtGui.QFrame.NoFrame)
-        self.conversationBoxesList.setFrameShadow(QtGui.QFrame.Plain)
-        self.conversationBoxesList.setProperty("showDropIndicator", False)
-        self.conversationBoxesList.setUniformItemSizes(True)
         self.conversationBoxesList.setObjectName(_fromUtf8("conversationBoxesList"))
-        self.gridLayout.addWidget(self.conversationBoxesList, 1, 0, 1, 1)
-        self.gridLayout.setColumnMinimumWidth(0, 200)
-        self.gridLayout.setColumnMinimumWidth(1, 300)
-        self.gridLayout.setRowMinimumHeight(1, 200)
+        self.conversationBoxesLayout = QtGui.QVBoxLayout(self.conversationBoxesList)
+        self.conversationBoxesLayout.setSpacing(0)
+        self.conversationBoxesLayout.setMargin(0)
+        self.conversationBoxesLayout.setObjectName(_fromUtf8("conversationBoxesLayout"))
+        self.scrollArea.setWidget(self.conversationBoxesList)
+        self.gridLayout.addWidget(self.scrollArea, 1, 0, 2, 1)
+        self.gridLayout.setColumnMinimumWidth(0, 250)
+        self.gridLayout.setColumnMinimumWidth(1, 250)
         self.gridLayout.setColumnStretch(1, 1)
         self.gridLayout.setRowStretch(1, 1)
 
