@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-class watchedDict(dict):
+class WatchedDict(dict):
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
         self.callback = None
@@ -24,3 +24,8 @@ class watchedDict(dict):
         dict.__delitem__(self, key)
         if self.callback is not None:
             self.callback.itemDeleted(key)
+
+    def clear(self):
+        dict.clear(self)
+        if self.callback is not None:
+            self.callback.dictCleared()
