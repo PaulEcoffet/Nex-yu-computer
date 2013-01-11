@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import LoginWindow
 import MainWindow
+from utils.watchedStructures import WatchedDict
 
 
 class GuiInterface():
@@ -11,8 +12,8 @@ class GuiInterface():
         """
         self.login = LoginWindow.LoginWindow()
         self.main = None
-        self.contacts = {}
-        self.conversations = {}
+        self.contacts = WatchedDict()
+        self.conversations = WatchedDict()
         self.server = None
         self.conversation = None
 

@@ -2,7 +2,7 @@
 
 from PyQt4 import QtGui
 import ui.MainWindow.mainWindow as mw
-import convBox
+from convBox import ConvBox
 
 
 class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
@@ -10,33 +10,39 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
     def __init__(self, interface, parent=None):
         super(MainWindow, self).__init__(parent)
         self.interface = interface
-        self.convBoxes = []
-        self.convList = []
+        self.convBoxes = {}
         self.update = False
         self.setupUi(self)
 
-    def fillConversationsList(self, conversationsList):
+    def createConvBox(self, id, conversation):
         """
-        Fill the conversations list with the items in the conversationsList
-        variable. It has a cooldown of 1 second.
+        Create a convBox
+        """
+        self.convBoxes[id] = ConvBox(conversation)
 
-        conversationsList -- The list of the conversations.
+    def addConvBox(self, convBox_id, before_id):
         """
-        self.clearConvBoxesList()
-        for conversation in self.convList:
-            convbox = convBox.ConvBox(conversation)
-            self.convBoxes.append(convbox)
-        self.drawConvBoxes()
+        Draw the conversation box with the id convBox_id before the
+        conversation box with the id before_id. if  before_id is negative,
+        then the convBox is set at the end of the list.
+        """
+        if before_id >= 0:
+            self.ConversationBoxesLayout.insertWidget(
+                self.ConversationBoxesLayout.indexOf(self.convBoxes[before_id]),
+                self.convBoxes[convBox_id])
+        else:
+            self.ConversationBoxesLayout.addWidget(self.convBoxes[convBox_id])
 
-    def clearConvBoxesList(self):
-        for convBox in self.convBoxes:
-            self.ConversationBoxesLayout.removeWidget(convBox)
-            convBox.deleteLater()
-        del self.convBoxes[:]
+    def removeConvBox(self, convBox_id):
+        """
+        Remove the conversation box at the id convBox_id
+        """
+        self.ConversationBoxesLayout.removeWidget(self.convBoxes[convBox_id])
 
-    def drawConvBoxes(self):
+    def moveConvBox(self, convBox_id, position):
         """
-        Draw the conversation boxes.
+        Move the conversation box to the given position
         """
-        for convbox in self.convBoxes:
-            self.ConversationBoxesLayout.addWidget(convbox)
+        self.removeConvBox(convBox_id)
+        self.ConversationBoxesLayout.insertWidget(position,
+                                                  self.convBoxes[convBox_id])
