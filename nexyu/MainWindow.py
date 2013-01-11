@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
 import ui.MainWindow.mainWindow as mw
 import convBox
 
@@ -11,7 +11,6 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
         super(MainWindow, self).__init__(parent)
         self.interface = interface
         self.convBoxes = []
-        self.timerSet = False
         self.convList = []
         self.update = False
         self.setupUi(self)
@@ -23,26 +22,11 @@ class MainWindow(QtGui.QWidget, mw.Ui_nexyuMain):
 
         conversationsList -- The list of the conversations.
         """
-        self.convList = conversationsList
-        self.update = True
-        if not self.timerSet:
-            self._updateConvBoxesList(False)
-            QtCore.QTimer.singleShot(1000, self._updateConvBoxesList)
-            self.timerSet = True
-
-    def _updateConvBoxesList(self, triggered=True):
-        """
-        Update the conversation boxes list
-        """
-        if self.update:
-            self.clearConvBoxesList()
-            for conversation in self.convList:
-                convbox = convBox.ConvBox(conversation)
-                self.convBoxes.append(convbox)
-            self.drawConvBoxes()
-            self.update = False
-        if triggered:
-            self.timerSet = False
+        self.clearConvBoxesList()
+        for conversation in self.convList:
+            convbox = convBox.ConvBox(conversation)
+            self.convBoxes.append(convbox)
+        self.drawConvBoxes()
 
     def clearConvBoxesList(self):
         for convBox in self.convBoxes:
